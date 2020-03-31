@@ -1,5 +1,5 @@
 {
-  "name": "fx-parser",
+  "name": "fx-solve",
   "version": "0.1.0",
   "description": "A custom formulas parser.",
   "main": "index.js",
