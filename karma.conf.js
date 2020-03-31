@@ -11,7 +11,7 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai'],
 
     // list of files / patterns to load in the browser
-    files: ['dist/fx-parser.js', 'test/*.spec.js'],
+    files: ['dist/fx-solve.js', 'test/*.spec.js'],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor

@@ -20,12 +20,12 @@ function getOptions (min = false) {
   return {
     browserify: {
       entries: './lib/index.js',
-      standalone: 'fx-parser',
+      standalone: 'fx-solve',
       debug: true
     },
     rename: {
       extname: min ? '.min.js' : '.js',
-      basename: 'fx-parser'
+      basename: 'fx-solve'
     },
     babelify: {
       presets: ['@babel/preset-env']
