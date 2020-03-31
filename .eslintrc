@@ -1,0 +1,52 @@
+{
+  "plugins": [
+    "security",
+    "mocha",
+    "node"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:security/recommended",
+    "plugin:mocha/recommended",
+    "plugin:node/recommended"
+  ],
+  "env": {
+    "browser": false,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "no-console": "off",
+    "require-jsdoc": "warn",
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
+    "quotes": [
+      "error",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "valid-jsdoc": [
+      "warn",
+      {
+        "requireReturn": false,
+        "prefer": {
+          "return": "returns"
+        }
+      }
+    ]
+  }
+}
