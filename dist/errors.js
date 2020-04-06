@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @module formulas/services/formulas/errors
  */
-var fi_is_1 = require("fi-is");
+const fi_is_1 = require("fi-is");
 /**
  * Builds an error function.
  *
@@ -15,7 +15,7 @@ var fi_is_1 = require("fi-is");
  * @returns {Error} The created custom error.
  */
 function buildError(options) {
-    var isMalformed = fi_is_1.default.empty(options) || fi_is_1.default.empty(options.name) || fi_is_1.default.empty(options.message);
+    const isMalformed = fi_is_1.default.empty(options) || fi_is_1.default.empty(options.name) || fi_is_1.default.empty(options.message);
     if (isMalformed) {
         throw new Error('Malformed custom error');
     }
@@ -75,3 +75,4 @@ exports.default = {
     InvalidFormulaError: exports.InvalidFormulaError,
     InvalidValueError: exports.InvalidValueError
 };
+//# sourceMappingURL=errors.js.map

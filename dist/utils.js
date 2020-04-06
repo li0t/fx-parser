@@ -3,10 +3,10 @@
  * @module formulas/services/formulas/utils
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var consts_1 = require("./consts");
-var parse5_1 = require("parse5");
-var mathjs_1 = require("mathjs");
-var MATH_CONSTANTS = Object.keys(mathjs_1.default);
+const consts_1 = require("./consts");
+const parse5_1 = require("parse5");
+const mathjs_1 = require("mathjs");
+const MATH_CONSTANTS = Object.keys(mathjs_1.default);
 /**
  * Library returns anonymous error with the "Undefined symbol" string.
  * @param {String} err
@@ -28,7 +28,7 @@ exports.isUnexpectedTypeError = isUnexpectedTypeError;
  * @param {String} val
  */
 function isFormulaSymbol(val) {
-    return !!Object.values(consts_1.default).find(function (symbol) { return val === symbol; });
+    return !!Object.values(consts_1.default).find(symbol => val === symbol);
 }
 exports.isFormulaSymbol = isFormulaSymbol;
 /**
@@ -36,7 +36,7 @@ exports.isFormulaSymbol = isFormulaSymbol;
  * @param {*} val
  */
 function isRefErrorSymbol(val) {
-    var re = new RegExp(consts_1.default.REF_ERROR);
+    const re = new RegExp(consts_1.default.REF_ERROR);
     return re.test(val);
 }
 exports.isRefErrorSymbol = isRefErrorSymbol;
@@ -45,7 +45,7 @@ exports.isRefErrorSymbol = isRefErrorSymbol;
  * @param {*} val
  */
 function isValErrorSymbol(val) {
-    var re = new RegExp(consts_1.default.VAL_ERROR);
+    const re = new RegExp(consts_1.default.VAL_ERROR);
     return re.test(val);
 }
 exports.isValErrorSymbol = isValErrorSymbol;
@@ -69,8 +69,8 @@ function isConstantNode(node) {
  * @private
  */
 function parseExpressionNode(node) {
-    var newNode = {
-        classes: node.attrs.find(function (a) { return a.name === 'class'; }).value,
+    const newNode = {
+        classes: node.attrs.find(a => a.name === 'class').value,
         value: node.childNodes[0].value
     };
     if (isConstantNode(newNode)) {
@@ -83,9 +83,9 @@ function parseExpressionNode(node) {
  * @param {String} expression
  */
 function splitExpressionNodes(expression) {
-    var exp = cleanExpression(expression);
-    var nodesString = mathjs_1.default.parse(exp).toHTML();
-    var rootNode = parse5_1.default.parseFragment(nodesString);
+    const exp = cleanExpression(expression);
+    const nodesString = mathjs_1.default.parse(exp).toHTML();
+    const rootNode = parse5_1.default.parseFragment(nodesString);
     return rootNode.childNodes.map(parseExpressionNode);
 }
 exports.splitExpressionNodes = splitExpressionNodes;
@@ -94,12 +94,12 @@ exports.splitExpressionNodes = splitExpressionNodes;
  * @param {String} expression
  */
 function cleanExpression(expression) {
-    var match = /\d,\d/.exec(expression);
+    const match = /\d,\d/.exec(expression);
     if (!match) {
         return expression;
     }
-    var fixed = match.toString().replace(/,/g, '.');
-    var newExp = expression.replace(match, fixed);
+    const fixed = match.toString().replace(/,/g, '.');
+    const newExp = expression.replace(match, fixed);
     return cleanExpression(newExp);
 }
 exports.cleanExpression = cleanExpression;
@@ -108,12 +108,12 @@ exports.cleanExpression = cleanExpression;
  * @param {String} expression The math expression
  */
 function getVariables(expression) {
-    var variables = [];
-    var exp = cleanExpression(expression);
-    var node = mathjs_1.default.parse(exp);
-    node.traverse(function (n) {
+    const variables = [];
+    const exp = cleanExpression(expression);
+    const node = mathjs_1.default.parse(exp);
+    node.traverse(n => {
         if (n.type === 'SymbolNode' && !MATH_CONSTANTS.includes(n.name)) {
-            var alreadyAdded = variables.find(function (v) { return v === n.name; });
+            const alreadyAdded = variables.find(v => v === n.name);
             if (!alreadyAdded) {
                 variables.push(n.name);
             }
@@ -123,12 +123,13 @@ function getVariables(expression) {
 }
 exports.getVariables = getVariables;
 exports.default = {
-    isUndefinedVariableError: isUndefinedVariableError,
-    isUnexpectedTypeError: isUnexpectedTypeError,
-    splitExpressionNodes: splitExpressionNodes,
-    isValErrorSymbol: isValErrorSymbol,
-    isRefErrorSymbol: isRefErrorSymbol,
-    isVariableNode: isVariableNode,
-    isFormulaSymbol: isFormulaSymbol,
-    getVariables: getVariables
+    isUndefinedVariableError,
+    isUnexpectedTypeError,
+    splitExpressionNodes,
+    isValErrorSymbol,
+    isRefErrorSymbol,
+    isVariableNode,
+    isFormulaSymbol,
+    getVariables
 };
+//# sourceMappingURL=utils.js.map

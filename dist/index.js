@@ -3,12 +3,12 @@
  * @module formulas/services/formulas
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-var lodash_get_1 = require("lodash.get");
-var mathjs_1 = require("mathjs");
-var fi_is_1 = require("fi-is");
-var consts_1 = require("./consts");
-var utils_1 = require("./utils");
-var errors_1 = require("./errors");
+const lodash_get_1 = require("lodash.get");
+const mathjs_1 = require("mathjs");
+const fi_is_1 = require("fi-is");
+const consts_1 = require("./consts");
+const utils_1 = require("./utils");
+const errors_1 = require("./errors");
 /**
  * Compares two ids enforcing them to be strings
  * @private
@@ -17,8 +17,8 @@ function compareIds(id1, id2) {
     if (fi_is_1.default.empty(id1) || fi_is_1.default.empty(id2)) {
         throw new Error('Invalid ids to compare');
     }
-    var a = id1.toString ? id1.toString() : id1;
-    var b = id2.toString ? id2.toString() : id2;
+    const a = id1.toString ? id1.toString() : id1;
+    const b = id2.toString ? id2.toString() : id2;
     return a === b;
 }
 /**
@@ -34,7 +34,7 @@ function isValidParserVal(val) {
  */
 function solveExpression(expression, parser) {
     try {
-        var cleaned = utils_1.cleanExpression(expression);
+        const cleaned = utils_1.cleanExpression(expression);
         return parser.eval(cleaned);
     }
     catch (err) {
@@ -62,7 +62,7 @@ function handleCalcError(err) {
  */
 function setParserVariable(parser, name, val) {
     if (!isValidParserVal(val)) {
-        throw new errors_1.InvalidValueError("Value " + val + " is not a valid parser value");
+        throw new errors_1.InvalidValueError(`Value ${val} is not a valid parser value`);
     }
     parser.set(name, val);
 }
@@ -82,13 +82,13 @@ function findSource(reference, ctx) {
     if (!fi_is_1.default.object(ctx)) {
         throw new errors_1.InvalidVariablesError('Ctx must be an object');
     }
-    var model = ctx[reference.model];
+    const model = ctx[reference.model];
     if (!fi_is_1.default.array(model) || fi_is_1.default.empty(model)) {
-        throw new errors_1.InvalidVariablesError("Invalid context model \"" + reference.model + "\"");
+        throw new errors_1.InvalidVariablesError(`Invalid context model "${reference.model}"`);
     }
-    var source = model.find(function (doc) { return compareIds(doc._id, reference._id); });
+    const source = model.find((doc) => compareIds(doc._id, reference._id));
     if (!fi_is_1.default.object(source)) {
-        throw new errors_1.InvalidReferenceError("Source " + reference._id + " was not found in context model " + reference.model);
+        throw new errors_1.InvalidReferenceError(`Source ${reference._id} was not found in context model ${reference.model}`);
     }
     return source;
 }
@@ -100,7 +100,7 @@ function findReference(variable, ctx) {
     if (!fi_is_1.default.object(variable)) {
         throw new errors_1.InvalidVariablesError('Variable must be an object');
     }
-    var reference = variable.reference;
+    const reference = variable.reference;
     if (!fi_is_1.default.object(reference)) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
@@ -110,8 +110,8 @@ function findReference(variable, ctx) {
     if (!fi_is_1.default.object(ctx)) {
         throw new errors_1.InvalidReferenceError('Context must be an object');
     }
-    var source = findSource(reference, ctx);
-    var found = lodash_get_1.default(source, reference.path);
+    const source = findSource(reference, ctx);
+    const found = lodash_get_1.default(source, reference.path);
     if (found === null || found === undefined) {
         throw new errors_1.InvalidReferenceError('Invalid fetched value');
     }
@@ -140,10 +140,10 @@ function validateParams(source, ctx) {
  * @private
  */
 function findFormula(ctx, formula) {
-    var formulaId = formula._id || formula;
+    const formulaId = formula._id || formula;
     if (fi_is_1.default.empty(formula))
         throw new Error('Invalid formula');
-    return ctx.formulas.find(function (f) { return compareIds(f._id, formulaId); });
+    return ctx.formulas.find((f) => compareIds(f._id, formulaId));
 }
 /**
  * Checks if an attribute is an object and has a formula
@@ -157,28 +157,26 @@ function isCalculable(attribute) {
  * @private
  */
 function getSourceCalculables(source) {
-    return Object.values(source).filter(function (attr) { return isCalculable(attr); });
+    return Object.values(source).filter((attr) => isCalculable(attr));
 }
 /**
  * Tries to solve a calculable formula with it's stored variables references.
  */
-function solveFormula(calculable, ctx, parser) {
-    if (parser === void 0) { parser = mathjs_1.default.parser(); }
+function solveFormula(calculable, ctx, parser = mathjs_1.default.parser()) {
     if (fi_is_1.default.empty(calculable.formula)) {
-        var currentVal = calculable.value;
+        const currentVal = calculable.value;
         return currentVal;
     }
     if (fi_is_1.default.empty(calculable.variables)) {
         throw new errors_1.InvalidVariablesError("Calculable  doesn't have its variables set");
     }
-    var formula = findFormula(ctx, calculable.formula);
+    const formula = findFormula(ctx, calculable.formula);
     if (fi_is_1.default.empty(formula) || fi_is_1.default.empty(formula.expression)) {
-        throw new errors_1.InvalidFormulaError("Invalid formula " + calculable.formula);
+        throw new errors_1.InvalidFormulaError(`Invalid formula ${calculable.formula}`);
     }
     try {
-        for (var _i = 0, _a = calculable.variables; _i < _a.length; _i++) {
-            var variable = _a[_i];
-            var val = findReference(variable, ctx);
+        for (const variable of calculable.variables) {
+            const val = findReference(variable, ctx);
             setParserVariable(parser, variable.name, val);
         }
         return solveExpression(formula.expression, parser);
@@ -191,18 +189,16 @@ exports.solveFormula = solveFormula;
 /**
  * Iterates over the context calculables until there is no more changes.
  */
-function solveFormulas(source, ctx, parser) {
-    if (parser === void 0) { parser = mathjs_1.default.parser(); }
+function solveFormulas(source, ctx, parser = mathjs_1.default.parser()) {
     validateParams(source, ctx);
-    var valueChanged;
-    var calculables = getSourceCalculables(source);
-    for (var _i = 0, calculables_1 = calculables; _i < calculables_1.length; _i++) {
-        var calculable = calculables_1[_i];
+    let valueChanged;
+    const calculables = getSourceCalculables(source);
+    for (const calculable of calculables) {
         if (!calculable.formula) {
             continue;
         }
-        var oldVal = calculable.value;
-        var newVal = solveFormula(calculable, ctx, parser);
+        const oldVal = calculable.value;
+        const newVal = solveFormula(calculable, ctx, parser);
         calculable.value = newVal;
         if (oldVal !== newVal) {
             valueChanged = true;
@@ -214,6 +210,7 @@ function solveFormulas(source, ctx, parser) {
 }
 exports.solveFormulas = solveFormulas;
 exports.default = {
-    solveFormulas: solveFormulas,
-    solveFormula: solveFormula
+    solveFormulas,
+    solveFormula
 };
+//# sourceMappingURL=index.js.map
