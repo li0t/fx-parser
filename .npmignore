@@ -1,11 +1,8 @@
-dist
-docs
 test
 .gitattributes
 .editorconfig
 lib/.eslintrc
+.prettierrc
 .eslintrc
-.travis.yml
 .nycrc
-gulpfile.js
-karma.conf.js
+.tsconfig.json
