@@ -2,7 +2,7 @@
  * @module fxSolve/errors
  */
 
-import is from 'fi-is';
+import * as is from 'fi-is';
 
 interface ErrorOptions {
   name: string;

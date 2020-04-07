@@ -4,7 +4,7 @@
 
 import _get from 'lodash.get';
 import math from 'mathjs';
-import is from 'fi-is';
+import * as is from 'fi-is';
 
 import { REF_ERROR, VAL_ERROR } from './consts';
 
