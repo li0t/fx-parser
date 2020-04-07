@@ -17,7 +17,7 @@ export interface Node {
 }
 
 export interface Reference {
-  _id: string;
+  docId: string;
   model: string;
   path: string;
 }
