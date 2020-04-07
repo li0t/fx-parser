@@ -1,6 +1,6 @@
 "use strict";
 /**
- * @module formulas/services/formulas/consts
+ * @module fxSolve/consts
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const FORMULAS_CONSTS = {

@@ -1,6 +1,6 @@
 "use strict";
 /**
- * @module formulas/services/formulas
+ * @module fxSolve
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_get_1 = require("lodash.get");
@@ -11,7 +11,9 @@ const utils_1 = require("./utils");
 const errors_1 = require("./errors");
 /**
  * Compares two ids enforcing them to be strings
- * @private
+ * @param  {string|object|null} id1
+ * @param  {string|object|null} id2
+ * @returns boolean
  */
 function compareIds(id1, id2) {
     if (fi_is_1.default.empty(id1) || fi_is_1.default.empty(id2)) {
@@ -23,14 +25,17 @@ function compareIds(id1, id2) {
 }
 /**
  * Checks if a given value is acceptable to be set as parser variable.
- * @private
+ * @param  {any} val
+ * @returns boolean
  */
 function isValidParserVal(val) {
     return !fi_is_1.default.empty(val) && !utils_1.isRefErrorSymbol(val) && !utils_1.isValErrorSymbol(val);
 }
 /**
  * Tries to solve a mathematical expression.
- * @private
+ * @param  {string} expression
+ * @param  {any} parser
+ * @returns any
  */
 function solveExpression(expression, parser) {
     try {
@@ -45,20 +50,25 @@ function solveExpression(expression, parser) {
     }
 }
 /**
- * @private
+ * Returns a fxSolve consts for a known error.
+ * @param  {Error|string} err
+ * @returns string
  */
 function handleCalcError(err) {
     if (err instanceof errors_1.InvalidReferenceError) {
-        return consts_1.default.REF_ERROR;
+        return consts_1.REF_ERROR;
     }
     if (err instanceof errors_1.InvalidValueError || utils_1.isUnexpectedTypeError(err)) {
-        return consts_1.default.VAL_ERROR;
+        return consts_1.VAL_ERROR;
     }
     throw err;
 }
 /**
  * Sets a variable value in a calculable parser.
- * @private
+ * @param  {any} parser
+ * @param  {string} name
+ * @param  {any} val
+ * @returns void
  */
 function setParserVariable(parser, name, val) {
     if (!isValidParserVal(val)) {
@@ -68,6 +78,9 @@ function setParserVariable(parser, name, val) {
 }
 /**
  * Finds a value source in the context.
+ * @param  {Reference} reference
+ * @param  {object} ctx
+ * @returns object
  */
 function findSource(reference, ctx) {
     if (!fi_is_1.default.object(reference)) {
@@ -94,7 +107,9 @@ function findSource(reference, ctx) {
 }
 /**
  * Retrieves the formula variable reference value.
- * @private
+ * @param  {Variable} variable
+ * @param  {object} ctx
+ * @returns any
  */
 function findReference(variable, ctx) {
     if (!fi_is_1.default.object(variable)) {
@@ -121,8 +136,10 @@ function findReference(variable, ctx) {
     return found;
 }
 /**
- * Validates the required params
- * @private
+ * Validates the required params.
+ * @param  {object} source
+ * @param  {any} ctx
+ * @returns void
  */
 function validateParams(source, ctx) {
     if (fi_is_1.default.empty(source)) {
@@ -137,7 +154,9 @@ function validateParams(source, ctx) {
 }
 /**
  * Looks for a formula object in the store formulas array.
- * @private
+ * @param  {any} ctx
+ * @param  {any} formula
+ * @returns Formula
  */
 function findFormula(ctx, formula) {
     const formulaId = formula._id || formula;
@@ -147,20 +166,26 @@ function findFormula(ctx, formula) {
 }
 /**
  * Checks if an attribute is an object and has a formula
- * @private
+ * @param  {Calculable} attribute
+ * @returns boolean
  */
 function isCalculable(attribute) {
     return fi_is_1.default.object(attribute) && !fi_is_1.default.empty(attribute.formula);
 }
 /**
  * Filters all the calculable attributes of an object.
- * @private
+ * @param  {any} source
+ * @returns Calculable
  */
 function getSourceCalculables(source) {
     return Object.values(source).filter((attr) => isCalculable(attr));
 }
 /**
  * Tries to solve a calculable formula with it's stored variables references.
+ * @param  {Calculable} calculable
+ * @param  {any} ctx
+ * @param  {any=math.parser(} parser
+ * @returns calculationResult
  */
 function solveFormula(calculable, ctx, parser = mathjs_1.default.parser()) {
     if (fi_is_1.default.empty(calculable.formula)) {
@@ -188,10 +213,14 @@ function solveFormula(calculable, ctx, parser = mathjs_1.default.parser()) {
 exports.solveFormula = solveFormula;
 /**
  * Iterates over the context calculables until there is no more changes.
+ * @param  {any} source
+ * @param  {any} ctx
+ * @param  {any=math.parser(} parser
+ * @returns void
  */
 function solveFormulas(source, ctx, parser = mathjs_1.default.parser()) {
     validateParams(source, ctx);
-    let valueChanged;
+    let valueChanged = false;
     const calculables = getSourceCalculables(source);
     for (const calculable of calculables) {
         if (!calculable.formula) {
@@ -209,8 +238,4 @@ function solveFormulas(source, ctx, parser = mathjs_1.default.parser()) {
     }
 }
 exports.solveFormulas = solveFormulas;
-exports.default = {
-    solveFormulas,
-    solveFormula
-};
 //# sourceMappingURL=index.js.map
