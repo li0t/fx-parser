@@ -4,7 +4,7 @@
 
 import * as FORMULAS_CONSTS from './consts';
 import parse5 from 'parse5';
-import math from 'mathjs';
+import * as math from 'mathjs';
 
 import { Node } from './interfaces';
 
