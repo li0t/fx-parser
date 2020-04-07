@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_get_1 = require("lodash.get");
 const mathjs_1 = require("mathjs");
-const fi_is_1 = require("fi-is");
+const is = require("fi-is");
 const consts_1 = require("./consts");
 const utils_1 = require("./utils");
 const errors_1 = require("./errors");
@@ -16,7 +16,7 @@ const errors_1 = require("./errors");
  * @returns boolean
  */
 function compareIds(id1, id2) {
-    if (fi_is_1.default.empty(id1) || fi_is_1.default.empty(id2)) {
+    if (is.empty(id1) || is.empty(id2)) {
         throw new Error('Invalid ids to compare');
     }
     const a = id1.toString ? id1.toString() : id1;
@@ -29,7 +29,7 @@ function compareIds(id1, id2) {
  * @returns boolean
  */
 function isValidParserVal(val) {
-    return !fi_is_1.default.empty(val) && !utils_1.isRefErrorSymbol(val) && !utils_1.isValErrorSymbol(val);
+    return !is.empty(val) && !utils_1.isRefErrorSymbol(val) && !utils_1.isValErrorSymbol(val);
 }
 /**
  * Tries to solve a mathematical expression.
@@ -83,24 +83,24 @@ function setParserVariable(parser, name, val) {
  * @returns object
  */
 function findSource(reference, ctx) {
-    if (!fi_is_1.default.object(reference)) {
+    if (!is.object(reference)) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
-    if (!fi_is_1.default.string(reference.docId)) {
+    if (!is.string(reference.docId)) {
         throw new errors_1.InvalidVariablesError('Refernce docId must be a string');
     }
-    if (!fi_is_1.default.string(reference.model)) {
+    if (!is.string(reference.model)) {
         throw new errors_1.InvalidVariablesError('Refernce model must be a string');
     }
-    if (!fi_is_1.default.object(ctx)) {
+    if (!is.object(ctx)) {
         throw new errors_1.InvalidVariablesError('Ctx must be an object');
     }
     const model = ctx[reference.model];
-    if (!fi_is_1.default.array(model) || fi_is_1.default.empty(model)) {
+    if (!is.array(model) || is.empty(model)) {
         throw new errors_1.InvalidVariablesError(`Invalid context model "${reference.model}"`);
     }
     const source = model.find((doc) => compareIds(doc._id, reference.docId));
-    if (!fi_is_1.default.object(source)) {
+    if (!is.object(source)) {
         throw new errors_1.InvalidReferenceError(`Source ${reference.docId} was not found in context model ${reference.model}`);
     }
     return source;
@@ -112,17 +112,17 @@ function findSource(reference, ctx) {
  * @returns any
  */
 function findReference(variable, ctx) {
-    if (!fi_is_1.default.object(variable)) {
+    if (!is.object(variable)) {
         throw new errors_1.InvalidVariablesError('Variable must be an object');
     }
     const reference = variable.reference;
-    if (!fi_is_1.default.object(reference)) {
+    if (!is.object(reference)) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
-    if (!fi_is_1.default.string(reference.path)) {
+    if (!is.string(reference.path)) {
         throw new errors_1.InvalidVariablesError('Refernce path must be a string');
     }
-    if (!fi_is_1.default.object(ctx)) {
+    if (!is.object(ctx)) {
         throw new errors_1.InvalidReferenceError('Context must be an object');
     }
     const source = findSource(reference, ctx);
@@ -130,7 +130,7 @@ function findReference(variable, ctx) {
     if (found === null || found === undefined) {
         throw new errors_1.InvalidReferenceError('Invalid fetched value');
     }
-    if (fi_is_1.default.object(found)) {
+    if (is.object(found)) {
         found.value;
     }
     return found;
@@ -142,13 +142,13 @@ function findReference(variable, ctx) {
  * @returns void
  */
 function validateParams(source, ctx) {
-    if (fi_is_1.default.empty(source)) {
+    if (is.empty(source)) {
         throw new errors_1.InvalidArgumentsError('The source is empty');
     }
-    if (fi_is_1.default.empty(ctx)) {
+    if (is.empty(ctx)) {
         throw new errors_1.InvalidArgumentsError('The ctx is empty');
     }
-    if (fi_is_1.default.empty(ctx.formulas)) {
+    if (is.empty(ctx.formulas)) {
         throw new errors_1.InvalidArgumentsError('The source.formulas are empty');
     }
 }
@@ -160,7 +160,7 @@ function validateParams(source, ctx) {
  */
 function findFormula(ctx, formula) {
     const formulaId = formula._id || formula;
-    if (fi_is_1.default.empty(formula))
+    if (is.empty(formula))
         throw new Error('Invalid formula');
     return ctx.formulas.find((f) => compareIds(f._id, formulaId));
 }
@@ -170,7 +170,7 @@ function findFormula(ctx, formula) {
  * @returns boolean
  */
 function isCalculable(attribute) {
-    return fi_is_1.default.object(attribute) && !fi_is_1.default.empty(attribute.formula);
+    return is.object(attribute) && !is.empty(attribute.formula);
 }
 /**
  * Filters all the calculable attributes of an object.
@@ -188,15 +188,15 @@ function getSourceCalculables(source) {
  * @returns calculationResult
  */
 function solveFormula(calculable, ctx, parser = mathjs_1.default.parser()) {
-    if (fi_is_1.default.empty(calculable.formula)) {
+    if (is.empty(calculable.formula)) {
         const currentVal = calculable.value;
         return currentVal;
     }
-    if (fi_is_1.default.empty(calculable.variables)) {
+    if (is.empty(calculable.variables)) {
         throw new errors_1.InvalidVariablesError("Calculable  doesn't have its variables set");
     }
     const formula = findFormula(ctx, calculable.formula);
-    if (fi_is_1.default.empty(formula) || fi_is_1.default.empty(formula.expression)) {
+    if (is.empty(formula) || is.empty(formula.expression)) {
         throw new errors_1.InvalidFormulaError(`Invalid formula ${calculable.formula}`);
     }
     try {

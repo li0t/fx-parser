@@ -3,12 +3,12 @@
  * @module fxSolve/errors
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const fi_is_1 = require("fi-is");
+const is = require("fi-is");
 /**
  * Builds an error function.
  */
 function buildError(options) {
-    const isMalformed = fi_is_1.default.empty(options) || fi_is_1.default.empty(options.name) || fi_is_1.default.empty(options.message);
+    const isMalformed = is.empty(options) || is.empty(options.name) || is.empty(options.message);
     if (isMalformed) {
         throw new Error('Malformed custom error');
     }
