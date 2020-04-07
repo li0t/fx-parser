@@ -1,6 +1,6 @@
 {
   "name": "fx-solve",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A custom formulas parser.",
   "main": "index.js",
   "scripts": {
