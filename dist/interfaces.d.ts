@@ -13,7 +13,7 @@ export interface Node {
     childNodes: Node[];
 }
 export interface Reference {
-    _id: string;
+    docId: string;
     model: string;
     path: string;
 }

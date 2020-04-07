@@ -5,8 +5,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const FORMULAS_CONSTS = require("./consts");
 const parse5_1 = require("parse5");
-const mathjs_1 = require("mathjs");
-const MATH_CONSTANTS = Object.keys(mathjs_1.default);
+const math = require("mathjs");
+const MATH_CONSTANTS = Object.keys(math);
 /**
  * Library returns anonymous error with the "Undefined symbol" string.
  */
@@ -79,7 +79,7 @@ exports.parseExpressionNode = parseExpressionNode;
  */
 function splitExpressionNodes(expression) {
     const exp = cleanExpression(expression);
-    const nodesString = mathjs_1.default.parse(exp).toHTML();
+    const nodesString = math.parse(exp).toHTML();
     const rootNode = parse5_1.default.parseFragment(nodesString);
     return rootNode.childNodes.map(parseExpressionNode);
 }
@@ -103,7 +103,7 @@ exports.cleanExpression = cleanExpression;
 function getVariables(expression) {
     const variables = [];
     const exp = cleanExpression(expression);
-    const node = mathjs_1.default.parse(exp);
+    const node = math.parse(exp);
     node.traverse((n) => {
         if (n.type === 'SymbolNode' && !MATH_CONSTANTS.includes(n.name)) {
             const alreadyAdded = variables.find((v) => v === n.name);

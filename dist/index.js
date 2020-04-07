@@ -86,8 +86,8 @@ function findSource(reference, ctx) {
     if (!fi_is_1.default.object(reference)) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
-    if (!fi_is_1.default.string(reference._id)) {
-        throw new errors_1.InvalidVariablesError('Refernce _id must be a string');
+    if (!fi_is_1.default.string(reference.docId)) {
+        throw new errors_1.InvalidVariablesError('Refernce docId must be a string');
     }
     if (!fi_is_1.default.string(reference.model)) {
         throw new errors_1.InvalidVariablesError('Refernce model must be a string');
@@ -99,9 +99,9 @@ function findSource(reference, ctx) {
     if (!fi_is_1.default.array(model) || fi_is_1.default.empty(model)) {
         throw new errors_1.InvalidVariablesError(`Invalid context model "${reference.model}"`);
     }
-    const source = model.find((doc) => compareIds(doc._id, reference._id));
+    const source = model.find((doc) => compareIds(doc._id, reference.docId));
     if (!fi_is_1.default.object(source)) {
-        throw new errors_1.InvalidReferenceError(`Source ${reference._id} was not found in context model ${reference.model}`);
+        throw new errors_1.InvalidReferenceError(`Source ${reference.docId} was not found in context model ${reference.model}`);
     }
     return source;
 }
