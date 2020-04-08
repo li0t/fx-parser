@@ -4,9 +4,26 @@
 
 import * as is from 'fi-is';
 
+import { ErrorInterface } from './types';
+
 interface ErrorOptions {
   name: string;
   message: string;
+}
+
+declare class Error implements ErrorInterface {
+  name: string;
+  message: string;
+  static captureStackTrace(object, objectConstructor?);
+}
+
+export class CustomError extends Error {
+  constructor(message: string) {
+    super();
+    Error.captureStackTrace(this, this.constructor);
+    this.name = 'invalid parameters error';
+    this.message = message || 'the parameters for the request or call are incorrect.';
+  }
 }
 
 /**
@@ -15,7 +32,7 @@ interface ErrorOptions {
 function buildError(options: ErrorOptions) {
   const isMalformed = is.empty(options) || is.empty(options.name) || is.empty(options.message);
   if (isMalformed) {
-    throw new Error('Malformed custom error');
+    throw new Error();
   }
 
   /**
