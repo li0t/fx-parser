@@ -24,8 +24,8 @@ import {
   InvalidFormulaError
 } from './errors';
 
-import { Reference, Variable, Calculable, Formula } from './interfaces';
-import { calculationResult } from './types';
+import { FormulaResult } from './types';
+import { Reference, Variable, Calculable, Formula, Context, ContextModel, ModelDocument, Parser } from './interfaces';
 
 /**
  * Compares two ids enforcing them to be strings
@@ -55,12 +55,30 @@ function isValidParserVal(val: any): boolean {
 }
 
 /**
+ * Checks if an attribute is an object and has a formula
+ * @param  {Calculable} attribute
+ * @returns boolean
+ */
+function isCalculable(attribute: Calculable): boolean {
+  return is.object(attribute) && !is.empty(attribute.formula);
+}
+
+/**
+ * Filters all the calculable attributes of an object.
+ * @param  {any} source
+ * @returns Calculable
+ */
+function getSourceCalculables(source: any): Calculable[] {
+  return <Calculable[]>Object.values(source).filter((attr: Calculable) => isCalculable(attr));
+}
+
+/**
  * Tries to solve a mathematical expression.
  * @param  {string} expression
- * @param  {any} parser
- * @returns any
+ * @param  {Parser} parser
+ * @returns FormulaResult
  */
-function solveExpression(expression: string, parser: any): any {
+function solveExpression(expression: string, parser: Parser): FormulaResult {
   try {
     const cleaned = cleanExpression(expression);
 
@@ -93,12 +111,12 @@ function handleCalcError(err: Error | string): string {
 
 /**
  * Sets a variable value in a calculable parser.
- * @param  {any} parser
+ * @param  {Parser} parser
  * @param  {string} name
  * @param  {any} val
  * @returns void
  */
-function setParserVariable(parser: any, name: string, val: any): void {
+function setParserVariable(parser: Parser, name: string, val: any): void {
   if (!isValidParserVal(val)) {
     throw new InvalidValueError(`Value ${val} is not a valid parser value`);
   }
@@ -107,12 +125,12 @@ function setParserVariable(parser: any, name: string, val: any): void {
 }
 
 /**
- * Finds a value source in the context.
+ * Finds a model document in the context.
  * @param  {Reference} reference
- * @param  {object} ctx
- * @returns object
+ * @param  {Context} ctx
+ * @returns The model document
  */
-function findSource(reference: Reference, ctx: object): object {
+function findDocument(reference: Reference, ctx: Context): ModelDocument {
   if (!is.object(reference)) {
     throw new InvalidVariablesError('Reference must be an object');
   }
@@ -129,28 +147,28 @@ function findSource(reference: Reference, ctx: object): object {
     throw new InvalidVariablesError('Ctx must be an object');
   }
 
-  const model = ctx[reference.model];
+  const model: ContextModel = ctx[reference.model];
 
   if (!is.array(model) || is.empty(model)) {
     throw new InvalidVariablesError(`Invalid context model "${reference.model}"`);
   }
 
-  const source = model.find((doc) => compareIds(doc._id, reference.docId));
+  const doc = model.find((doc) => compareIds(doc._id, reference.docId));
 
-  if (!is.object(source)) {
-    throw new InvalidReferenceError(`Source ${reference.docId} was not found in context model ${reference.model}`);
+  if (!is.object(doc)) {
+    throw new InvalidReferenceError(`Document ${reference.docId} was not found in context model ${reference.model}`);
   }
 
-  return source;
+  return doc;
 }
 
 /**
- * Retrieves the formula variable reference value.
+ * Retrieves the references value.
  * @param  {Variable} variable
- * @param  {object} ctx
- * @returns any
+ * @param  {Context} ctx
+ * @returns FormulaResult
  */
-function findReference(variable: Variable, ctx: object): any {
+function findValue(variable: Variable, ctx: Context): FormulaResult {
   if (!is.object(variable)) {
     throw new InvalidVariablesError('Variable must be an object');
   }
@@ -169,9 +187,9 @@ function findReference(variable: Variable, ctx: object): any {
     throw new InvalidReferenceError('Context must be an object');
   }
 
-  const source = findSource(reference, ctx);
+  const doc = findDocument(reference, ctx);
 
-  const found = _get(source, reference.path);
+  const found = _get(doc, reference.path);
 
   if (found === null || found === undefined) {
     throw new InvalidReferenceError('Invalid fetched value');
@@ -185,32 +203,12 @@ function findReference(variable: Variable, ctx: object): any {
 }
 
 /**
- * Validates the required params.
- * @param  {object} source
- * @param  {any} ctx
- * @returns void
- */
-function validateParams(source: object, ctx: any): void {
-  if (is.empty(source)) {
-    throw new InvalidArgumentsError('The source is empty');
-  }
-
-  if (is.empty(ctx)) {
-    throw new InvalidArgumentsError('The ctx is empty');
-  }
-
-  if (is.empty(ctx.formulas)) {
-    throw new InvalidArgumentsError('The source.formulas are empty');
-  }
-}
-
-/**
  * Looks for a formula object in the store formulas array.
- * @param  {any} ctx
+ * @param  {Context} ctx
  * @param  {any} formula
  * @returns Formula
  */
-function findFormula(ctx: any, formula: any): Formula {
+function findFormula(ctx: Context, formula: any): Formula {
   const formulaId = formula._id || formula;
 
   if (is.empty(formula)) throw new Error('Invalid formula');
@@ -219,31 +217,25 @@ function findFormula(ctx: any, formula: any): Formula {
 }
 
 /**
- * Checks if an attribute is an object and has a formula
- * @param  {Calculable} attribute
- * @returns boolean
- */
-function isCalculable(attribute: Calculable): boolean {
-  return is.object(attribute) && !is.empty(attribute.formula);
-}
-
-/**
- * Filters all the calculable attributes of an object.
- * @param  {any} source
- * @returns Calculable
- */
-function getSourceCalculables(source: any): Calculable[] {
-  return <Calculable[]>Object.values(source).filter((attr: Calculable) => isCalculable(attr));
-}
-
-/**
  * Tries to solve a calculable formula with it's stored variables references.
  * @param  {Calculable} calculable
- * @param  {any} ctx
- * @param  {any=math.parser(} parser
- * @returns calculationResult
+ * @param  {Context} ctx
+ * @param  {Parser=math.parser()} parser
+ * @returns FormulaResult
  */
-export function solveFormula(calculable: Calculable, ctx: any, parser: any = math.parser()): calculationResult {
+export function solveFormula(calculable: Calculable, ctx: Context, parser: Parser = math.parser()): FormulaResult {
+  if (is.empty(calculable)) {
+    throw new InvalidArgumentsError('The calculable is empty');
+  }
+
+  if (is.empty(ctx)) {
+    throw new InvalidArgumentsError('The ctx is empty');
+  }
+
+  if (is.empty(ctx.formulas)) {
+    throw new InvalidArgumentsError('The ctx.formulas are empty');
+  }
+
   if (is.empty(calculable.formula)) {
     const currentVal = calculable.value;
     return currentVal;
@@ -261,7 +253,7 @@ export function solveFormula(calculable: Calculable, ctx: any, parser: any = mat
 
   try {
     for (const variable of calculable.variables) {
-      const val = findReference(variable, ctx);
+      const val = findValue(variable, ctx);
 
       setParserVariable(parser, variable.name, val);
     }
@@ -275,14 +267,24 @@ export function solveFormula(calculable: Calculable, ctx: any, parser: any = mat
 /**
  * Iterates over the context calculables until there is no more changes.
  * @param  {any} source
- * @param  {any} ctx
- * @param  {any=math.parser(} parser
+ * @param  {Context} ctx
+ * @param  {Parser=math.parser()} parser
  * @returns void
  */
-export function solveFormulas(source: any, ctx: any, parser: any = math.parser()): void {
-  validateParams(source, ctx);
+export function solveFormulas(source: any, ctx: Context, parser: Parser = math.parser()): void {
+  if (is.empty(source)) {
+    throw new InvalidArgumentsError('The source is empty');
+  }
 
-  let valueChanged: boolean = false;
+  if (is.empty(ctx)) {
+    throw new InvalidArgumentsError('The ctx is empty');
+  }
+
+  if (is.empty(ctx.formulas)) {
+    throw new InvalidArgumentsError('The ctx.formulas are empty');
+  }
+
+  let valueChanged = false;
 
   const calculables = getSourceCalculables(source);
 

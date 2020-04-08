@@ -2,4 +2,4 @@
  * @types fxSolve/types
  */
 
-export { calculationResult } from './types';
+export * from './types';

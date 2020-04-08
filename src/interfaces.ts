@@ -1,8 +1,8 @@
 /**
- * @module fxSolve/interfaces
+ * @types fxSolve/interfaces
  */
 
-import { calculationResult } from './types';
+import { FormulaResult } from './types';
 
 export interface NodeAttribute {
   name: string;
@@ -28,13 +28,30 @@ export interface Variable {
 }
 
 export interface Calculable {
-  value: calculationResult;
+  value: FormulaResult;
   formula: string;
   variables: Variable[];
 }
 
 export interface Formula {
+  _id: string;
   name: string;
   expression: string;
   variables: string[];
+}
+
+export interface ModelDocument {
+  _id: string;
+  formulas: Formula[];
+}
+
+export interface ContextModel extends Array<ModelDocument> {}
+
+export interface Context {
+  formulas: Formula[];
+}
+
+export interface Parser {
+  eval: Function;
+  set: Function;
 }
