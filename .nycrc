@@ -1,6 +1,6 @@
 {
   "all": true,
-  "include": ["lib/**/*.js"],
+  "include": ["src/**/*.js"],
   "reporter": ["html"],
   "cache": true
 }
