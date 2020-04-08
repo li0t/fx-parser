@@ -60,7 +60,7 @@ function isValidParserVal(val: any): boolean {
  * @param  {any} parser
  * @returns any
  */
-function solveExpression(expression: string, parser: any) : any {
+function solveExpression(expression: string, parser: any): any {
   try {
     const cleaned = cleanExpression(expression);
 
@@ -79,7 +79,7 @@ function solveExpression(expression: string, parser: any) : any {
  * @param  {Error|string} err
  * @returns string
  */
-function handleCalcError(err: Error | string) : string {
+function handleCalcError(err: Error | string): string {
   if (err instanceof InvalidReferenceError) {
     return REF_ERROR;
   }
@@ -98,7 +98,7 @@ function handleCalcError(err: Error | string) : string {
  * @param  {any} val
  * @returns void
  */
-function setParserVariable(parser: any, name: string, val: any) : void {
+function setParserVariable(parser: any, name: string, val: any): void {
   if (!isValidParserVal(val)) {
     throw new InvalidValueError(`Value ${val} is not a valid parser value`);
   }
@@ -112,7 +112,7 @@ function setParserVariable(parser: any, name: string, val: any) : void {
  * @param  {object} ctx
  * @returns object
  */
-function findSource(reference: Reference, ctx: object) : object {
+function findSource(reference: Reference, ctx: object): object {
   if (!is.object(reference)) {
     throw new InvalidVariablesError('Reference must be an object');
   }
@@ -150,7 +150,7 @@ function findSource(reference: Reference, ctx: object) : object {
  * @param  {object} ctx
  * @returns any
  */
- function findReference(variable: Variable, ctx: object) :any {
+function findReference(variable: Variable, ctx: object): any {
   if (!is.object(variable)) {
     throw new InvalidVariablesError('Variable must be an object');
   }
@@ -190,7 +190,7 @@ function findSource(reference: Reference, ctx: object) : object {
  * @param  {any} ctx
  * @returns void
  */
-function validateParams(source: object, ctx: any) : void {
+function validateParams(source: object, ctx: any): void {
   if (is.empty(source)) {
     throw new InvalidArgumentsError('The source is empty');
   }
@@ -210,7 +210,7 @@ function validateParams(source: object, ctx: any) : void {
  * @param  {any} formula
  * @returns Formula
  */
-function findFormula(ctx: any, formula: any) : Formula {
+function findFormula(ctx: any, formula: any): Formula {
   const formulaId = formula._id || formula;
 
   if (is.empty(formula)) throw new Error('Invalid formula');
@@ -223,7 +223,7 @@ function findFormula(ctx: any, formula: any) : Formula {
  * @param  {Calculable} attribute
  * @returns boolean
  */
-function isCalculable(attribute: Calculable) : boolean {
+function isCalculable(attribute: Calculable): boolean {
   return is.object(attribute) && !is.empty(attribute.formula);
 }
 
@@ -306,3 +306,10 @@ export function solveFormulas(source: any, ctx: any, parser: any = math.parser()
     solveFormulas(source, ctx, parser);
   }
 }
+
+const fxSolve = {
+  solveFormula,
+  solveFormulas
+};
+
+export default fxSolve;
