@@ -2,7 +2,8 @@
   "name": "fx-solve",
   "version": "0.4.1",
   "description": "A custom formulas parser.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
