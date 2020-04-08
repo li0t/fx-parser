@@ -19,3 +19,8 @@ export declare function solveFormula(calculable: Calculable, ctx: any, parser?: 
  * @returns void
  */
 export declare function solveFormulas(source: any, ctx: any, parser?: any): void;
+declare const fxSolve: {
+    solveFormula: typeof solveFormula;
+    solveFormulas: typeof solveFormulas;
+};
+export default fxSolve;

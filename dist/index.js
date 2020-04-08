@@ -238,4 +238,9 @@ function solveFormulas(source, ctx, parser = mathjs_1.default.parser()) {
     }
 }
 exports.solveFormulas = solveFormulas;
+const fxSolve = {
+    solveFormula,
+    solveFormulas
+};
+exports.default = fxSolve;
 //# sourceMappingURL=index.js.map
