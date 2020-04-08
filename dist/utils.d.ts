@@ -45,4 +45,4 @@ export declare function cleanExpression(expression: any): string;
 /**
  * Parses a math expression string and returns an array with its variables names
  */
-export declare function getVariables(expression: string): object[];
+export declare function getVariables(expression: string): string[];

@@ -1,4 +1,5 @@
 /**
  * @types fxSolve/types
  */
-export declare type calculationResult = string | number | boolean;
+export declare type FormulaResult = string | number | boolean;
+export declare type ErrorInterface = Error;

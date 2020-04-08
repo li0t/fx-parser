@@ -4,13 +4,22 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const is = require("fi-is");
+class CustomError extends Error {
+    constructor(message) {
+        super();
+        Error.captureStackTrace(this, this.constructor);
+        this.name = 'invalid parameters error';
+        this.message = message || 'the parameters for the request or call are incorrect.';
+    }
+}
+exports.CustomError = CustomError;
 /**
  * Builds an error function.
  */
 function buildError(options) {
     const isMalformed = is.empty(options) || is.empty(options.name) || is.empty(options.message);
     if (isMalformed) {
-        throw new Error('Malformed custom error');
+        throw new Error();
     }
     /**
      * Custom Error template.

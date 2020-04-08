@@ -1,6 +1,15 @@
 /**
  * @module fxSolve/errors
  */
+import { ErrorInterface } from './types';
+declare class Error implements ErrorInterface {
+    name: string;
+    message: string;
+    static captureStackTrace(object: any, objectConstructor?: any): any;
+}
+export declare class CustomError extends Error {
+    constructor(message: string);
+}
 /** Errors */
 export declare const InvalidFormulaError: (message: string) => void;
 export declare const InvalidVariablesError: (message: string) => void;

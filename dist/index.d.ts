@@ -1,24 +1,24 @@
 /**
  * @module fxSolve
  */
-import { Calculable } from './interfaces';
-import { calculationResult } from './types';
+import { FormulaResult } from './types';
+import { Calculable, Context, Parser } from './interfaces';
 /**
  * Tries to solve a calculable formula with it's stored variables references.
  * @param  {Calculable} calculable
- * @param  {any} ctx
- * @param  {any=math.parser(} parser
- * @returns calculationResult
+ * @param  {Context} ctx
+ * @param  {Parser=math.parser()} parser
+ * @returns FormulaResult
  */
-export declare function solveFormula(calculable: Calculable, ctx: any, parser?: any): calculationResult;
+export declare function solveFormula(calculable: Calculable, ctx: Context, parser?: Parser): FormulaResult;
 /**
  * Iterates over the context calculables until there is no more changes.
  * @param  {any} source
- * @param  {any} ctx
- * @param  {any=math.parser(} parser
+ * @param  {Context} ctx
+ * @param  {Parser=math.parser()} parser
  * @returns void
  */
-export declare function solveFormulas(source: any, ctx: any, parser?: any): void;
+export declare function solveFormulas(source: any, ctx: Context, parser?: Parser): void;
 declare const fxSolve: {
     solveFormula: typeof solveFormula;
     solveFormulas: typeof solveFormulas;
