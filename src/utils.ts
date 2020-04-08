@@ -112,7 +112,7 @@ export function cleanExpression(expression): string {
 /**
  * Parses a math expression string and returns an array with its variables names
  */
-export function getVariables(expression: string): object[] {
+export function getVariables(expression: string): string[] {
   const variables = [];
 
   const exp = cleanExpression(expression);
