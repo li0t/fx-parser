@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "preversion": "tsc",
+    "preversion": "tsc && git add . && git commit -m 'Update dist'",
     "postversion": "npm publish",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
