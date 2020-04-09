@@ -2,8 +2,8 @@
  * @module fxSolve/utils
  */
 import { Reference, Variable, Calculable, Formula, Context, ModelDocument, Parser } from './interfaces';
-import { Node } from './interfaces';
 import { FormulaResult } from './types';
+import { Node } from './interfaces';
 /**
  * Mathjs returns anonymous error with the "Undefined symbol" string.
  */

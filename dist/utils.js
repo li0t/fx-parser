@@ -7,9 +7,9 @@ const FORMULAS_CONSTS = require("./consts");
 const parse5 = require("parse5");
 const math = require("mathjs");
 const is = require("fi-is");
-const lodash_get_1 = require("lodash.get");
-const MATH_CONSTANTS = Object.keys(math);
 const errors_1 = require("./errors");
+const lodash_1 = require("lodash");
+const MATH_CONSTANTS = Object.keys(math);
 /**
  * Mathjs returns anonymous error with the "Undefined symbol" string.
  */
@@ -259,7 +259,7 @@ function findValue(variable, ctx) {
         throw new errors_1.InvalidReferenceError('Context must be an object');
     }
     const doc = findDocument(reference, ctx);
-    const found = lodash_get_1.default(doc, reference.path);
+    const found = lodash_1._get(doc, reference.path);
     if (found === null || found === undefined) {
         throw new errors_1.InvalidReferenceError('Invalid fetched value');
     }
