@@ -3,10 +3,10 @@
  */
 
 import * as FORMULAS_CONSTS from './consts';
+import * as _get from 'lodash.get';
+import * as parse5 from 'parse5';
 import * as math from 'mathjs';
-import _get from 'lodash.get';
 import * as is from 'fi-is';
-import parse5 from 'parse5';
 
 const MATH_CONSTANTS = Object.keys(math);
 

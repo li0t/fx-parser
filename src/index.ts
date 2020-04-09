@@ -2,8 +2,8 @@
  * @module fxSolve
  */
 
+import * as _get from 'lodash.get';
 import * as math from 'mathjs';
-import _get from 'lodash.get';
 import * as is from 'fi-is';
 
 import { InvalidArgumentsError, InvalidVariablesError, InvalidFormulaError } from './errors';
