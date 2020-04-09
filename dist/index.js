@@ -3,8 +3,8 @@
  * @module fxSolve
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+const math = require("mathjs");
 const is = require("fi-is");
-const mathjs_1 = require("mathjs");
 const errors_1 = require("./errors");
 const utils_1 = require("./utils");
 /**
@@ -14,7 +14,7 @@ const utils_1 = require("./utils");
  * @param  {Parser=math.parser()} parser
  * @returns FormulaResult
  */
-function solveFormula(calculable, ctx, parser = mathjs_1.default.parser()) {
+function solveFormula(calculable, ctx, parser = math.parser()) {
     if (is.empty(calculable)) {
         throw new errors_1.InvalidArgumentsError('The calculable is empty');
     }
@@ -54,7 +54,7 @@ exports.solveFormula = solveFormula;
  * @param  {Parser=math.parser()} parser
  * @returns void
  */
-function solveFormulas(source, ctx, parser = mathjs_1.default.parser()) {
+function solveFormulas(source, ctx, parser = math.parser()) {
     if (is.empty(source)) {
         throw new errors_1.InvalidArgumentsError('The source is empty');
     }
