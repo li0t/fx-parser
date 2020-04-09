@@ -11,14 +11,14 @@ const lodash_get_1 = require("lodash.get");
 const MATH_CONSTANTS = Object.keys(math);
 const errors_1 = require("./errors");
 /**
- * Library returns anonymous error with the "Undefined symbol" string.
+ * Mathjs returns anonymous error with the "Undefined symbol" string.
  */
 function isUndefinedVariableError(err) {
     return /Undefined symbol/.test(err);
 }
 exports.isUndefinedVariableError = isUndefinedVariableError;
 /**
- * Library returns anonymous error with the "Unexpected type (...)" or "Cannot convert (...)" strings.
+ * Mathjs returns anonymous error with the "Unexpected type (...)" or "Cannot convert (...)" strings.
  */
 function isUnexpectedTypeError(err) {
     return /Unexpected type/.test(err) || /Cannot convert/.test(err);
@@ -259,7 +259,7 @@ function findValue(variable, ctx) {
         throw new errors_1.InvalidReferenceError('Context must be an object');
     }
     const doc = findDocument(reference, ctx);
-    const found = lodash_get_1._get(doc, reference.path);
+    const found = lodash_get_1.default(doc, reference.path);
     if (found === null || found === undefined) {
         throw new errors_1.InvalidReferenceError('Invalid fetched value');
     }

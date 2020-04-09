@@ -5,11 +5,11 @@ import { Reference, Variable, Calculable, Formula, Context, ModelDocument, Parse
 import { Node } from './interfaces';
 import { FormulaResult } from './types';
 /**
- * Library returns anonymous error with the "Undefined symbol" string.
+ * Mathjs returns anonymous error with the "Undefined symbol" string.
  */
 export declare function isUndefinedVariableError(err: string): boolean;
 /**
- * Library returns anonymous error with the "Unexpected type (...)" or "Cannot convert (...)" strings.
+ * Mathjs returns anonymous error with the "Unexpected type (...)" or "Cannot convert (...)" strings.
  */
 export declare function isUnexpectedTypeError(err: string): boolean;
 /**
