@@ -264,7 +264,7 @@ function findValue(variable, ctx) {
         throw new errors_1.InvalidReferenceError('Invalid fetched value');
     }
     if (is.object(found)) {
-        found.value;
+        return found.value;
     }
     return found;
 }
