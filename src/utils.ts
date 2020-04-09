@@ -7,7 +7,7 @@ import * as parse5 from 'parse5';
 import * as math from 'mathjs';
 import * as is from 'fi-is';
 
-import { _get } from 'lodash.get';
+import _get from 'lodash.get';
 
 const MATH_CONSTANTS = Object.keys(math);
 
@@ -17,14 +17,14 @@ import { InvalidReferenceError, InvalidValueError, InvalidVariablesError } from 
 import { FormulaResult } from './types';
 
 /**
- * Library returns anonymous error with the "Undefined symbol" string.
+ * Mathjs returns anonymous error with the "Undefined symbol" string.
  */
 export function isUndefinedVariableError(err: string): boolean {
   return /Undefined symbol/.test(err);
 }
 
 /**
- * Library returns anonymous error with the "Unexpected type (...)" or "Cannot convert (...)" strings.
+ * Mathjs returns anonymous error with the "Unexpected type (...)" or "Cannot convert (...)" strings.
  */
 export function isUnexpectedTypeError(err: string): boolean {
   return /Unexpected type/.test(err) || /Cannot convert/.test(err);
