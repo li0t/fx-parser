@@ -5,13 +5,14 @@
 import * as FORMULAS_CONSTS from './consts';
 import * as parse5 from 'parse5';
 import * as math from 'mathjs';
+import * as _  from 'lodash';
 import * as is from 'fi-is';
 
 import { Reference, Variable, Calculable, Formula, Context, ContextModel, ModelDocument, Parser } from './interfaces';
 import { InvalidReferenceError, InvalidValueError, InvalidVariablesError } from './errors';
 import { FormulaResult } from './types';
 import { Node } from './interfaces';
-import { _get } from 'lodash';
+
 
 const MATH_CONSTANTS = Object.keys(math);
 
@@ -299,7 +300,7 @@ export function findValue(variable: Variable, ctx: Context): FormulaResult {
 
   const doc = findDocument(reference, ctx);
 
-  const found = _get(doc, reference.path);
+  const found = _.get(doc, reference.path);
 
   if (found === null || found === undefined) {
     throw new InvalidReferenceError('Invalid fetched value');
