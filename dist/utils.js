@@ -4,9 +4,12 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const FORMULAS_CONSTS = require("./consts");
-const parse5_1 = require("parse5");
 const math = require("mathjs");
+const lodash_get_1 = require("lodash.get");
+const is = require("fi-is");
+const parse5_1 = require("parse5");
 const MATH_CONSTANTS = Object.keys(math);
+const errors_1 = require("./errors");
 /**
  * Library returns anonymous error with the "Undefined symbol" string.
  */
@@ -115,4 +118,168 @@ function getVariables(expression) {
     return variables;
 }
 exports.getVariables = getVariables;
+/**
+ * Compares two ids enforcing them to be strings
+ * @param  {string|object|null} id1
+ * @param  {string|object|null} id2
+ * @returns boolean
+ */
+function compareIds(id1, id2) {
+    if (is.empty(id1) || is.empty(id2)) {
+        throw new Error('Invalid ids to compare');
+    }
+    const a = id1.toString ? id1.toString() : id1;
+    const b = id2.toString ? id2.toString() : id2;
+    return a === b;
+}
+exports.compareIds = compareIds;
+/**
+ * Checks if a given value is acceptable to be set as parser variable.
+ * @param  {any} val
+ * @returns boolean
+ */
+function isValidParserVal(val) {
+    return !is.empty(val) && !isRefErrorSymbol(val) && !isValErrorSymbol(val);
+}
+exports.isValidParserVal = isValidParserVal;
+/**
+ * Checks if an attribute is an object and has a formula
+ * @param  {Calculable} attribute
+ * @returns boolean
+ */
+function isCalculable(attribute) {
+    return is.object(attribute) && !is.empty(attribute.formula);
+}
+exports.isCalculable = isCalculable;
+/**
+ * Filters all the calculable attributes of an object.
+ * @param  {any} source
+ * @returns Calculable
+ */
+function getSourceCalculables(source) {
+    return Object.values(source).filter((attr) => isCalculable(attr));
+}
+exports.getSourceCalculables = getSourceCalculables;
+/**
+ * Returns a fxSolve consts for a known error.
+ * @param  {Error|string} err
+ * @returns string
+ */
+function handleCalcError(err) {
+    if (err instanceof errors_1.InvalidReferenceError) {
+        return FORMULAS_CONSTS.REF_ERROR;
+    }
+    if (err instanceof errors_1.InvalidValueError || isUnexpectedTypeError(err)) {
+        return FORMULAS_CONSTS.VAL_ERROR;
+    }
+    throw err;
+}
+exports.handleCalcError = handleCalcError;
+/**
+ * Tries to solve a mathematical expression.
+ * @param  {string} expression
+ * @param  {Parser} parser
+ * @returns FormulaResult
+ */
+function solveExpression(expression, parser) {
+    try {
+        const cleaned = cleanExpression(expression);
+        return parser.eval(cleaned);
+    }
+    catch (err) {
+        if (isUndefinedVariableError(err)) {
+            return;
+        }
+        throw err;
+    }
+}
+exports.solveExpression = solveExpression;
+/**
+ * Sets a variable value in a calculable parser.
+ * @param  {Parser} parser
+ * @param  {string} name
+ * @param  {any} val
+ * @returns void
+ */
+function setParserVariable(parser, name, val) {
+    if (!isValidParserVal(val)) {
+        throw new errors_1.InvalidValueError(`Value ${val} is not a valid parser value`);
+    }
+    parser.set(name, val);
+}
+exports.setParserVariable = setParserVariable;
+/**
+ * Finds a model document in the context.
+ * @param  {Reference} reference
+ * @param  {Context} ctx
+ * @returns The model document
+ */
+function findDocument(reference, ctx) {
+    if (!is.object(reference)) {
+        throw new errors_1.InvalidVariablesError('Reference must be an object');
+    }
+    if (!is.string(reference.docId)) {
+        throw new errors_1.InvalidVariablesError('Refernce docId must be a string');
+    }
+    if (!is.string(reference.model)) {
+        throw new errors_1.InvalidVariablesError('Refernce model must be a string');
+    }
+    if (!is.object(ctx)) {
+        throw new errors_1.InvalidVariablesError('Ctx must be an object');
+    }
+    const model = ctx[reference.model];
+    if (!is.array(model) || is.empty(model)) {
+        throw new errors_1.InvalidVariablesError(`Invalid context model "${reference.model}"`);
+    }
+    const doc = model.find((doc) => compareIds(doc._id, reference.docId));
+    if (!is.object(doc)) {
+        throw new errors_1.InvalidReferenceError(`Document ${reference.docId} was not found in context model ${reference.model}`);
+    }
+    return doc;
+}
+exports.findDocument = findDocument;
+/**
+ * Retrieves the references value.
+ * @param  {Variable} variable
+ * @param  {Context} ctx
+ * @returns FormulaResult
+ */
+function findValue(variable, ctx) {
+    if (!is.object(variable)) {
+        throw new errors_1.InvalidVariablesError('Variable must be an object');
+    }
+    const reference = variable.reference;
+    if (!is.object(reference)) {
+        throw new errors_1.InvalidVariablesError('Reference must be an object');
+    }
+    if (!is.string(reference.path)) {
+        throw new errors_1.InvalidVariablesError('Refernce path must be a string');
+    }
+    if (!is.object(ctx)) {
+        throw new errors_1.InvalidReferenceError('Context must be an object');
+    }
+    const doc = findDocument(reference, ctx);
+    const found = lodash_get_1.default(doc, reference.path);
+    if (found === null || found === undefined) {
+        throw new errors_1.InvalidReferenceError('Invalid fetched value');
+    }
+    if (is.object(found)) {
+        found.value;
+    }
+    return found;
+}
+exports.findValue = findValue;
+/**
+ * Looks for a formula object in the store formulas array.
+ * @param  {Context} ctx
+ * @param  {any} formula
+ * @returns Formula
+ */
+function findFormula(ctx, formula) {
+    const formulaId = formula._id || formula;
+    if (is.empty(formula))
+        throw new Error('Invalid formula');
+    return ctx.formulas.find((f) => compareIds(f._id, formulaId));
+}
+exports.findFormula = findFormula;
 //# sourceMappingURL=utils.js.map
