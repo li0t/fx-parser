@@ -27,7 +27,7 @@
   "homepage": "https://github.com/li0t/fx-solve#readme",
   "dependencies": {
     "fi-is": "^4.0.0",
-    "lodash.get": "^4.4.2",
+    "lodash": "^4.17.15",
     "mathjs": "^6.6.2",
     "parse5": "^5.1.1"
   },

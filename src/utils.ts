@@ -7,14 +7,13 @@ import * as parse5 from 'parse5';
 import * as math from 'mathjs';
 import * as is from 'fi-is';
 
-import _get from 'lodash.get';
-
-const MATH_CONSTANTS = Object.keys(math);
-
 import { Reference, Variable, Calculable, Formula, Context, ContextModel, ModelDocument, Parser } from './interfaces';
-import { Node } from './interfaces';
 import { InvalidReferenceError, InvalidValueError, InvalidVariablesError } from './errors';
 import { FormulaResult } from './types';
+import { Node } from './interfaces';
+import { _get } from 'lodash';
+
+const MATH_CONSTANTS = Object.keys(math);
 
 /**
  * Mathjs returns anonymous error with the "Undefined symbol" string.
