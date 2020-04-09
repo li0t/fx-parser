@@ -5,8 +5,6 @@
 import * as math from 'mathjs';
 import * as is from 'fi-is';
 
-import { _get } from 'lodash.get';
-
 import { InvalidArgumentsError, InvalidVariablesError, InvalidFormulaError } from './errors';
 import { Calculable, Context, Parser } from './interfaces';
 import { FormulaResult } from './types';
