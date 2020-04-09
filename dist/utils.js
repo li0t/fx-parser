@@ -4,10 +4,10 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const FORMULAS_CONSTS = require("./consts");
-const _get = require("lodash.get");
 const parse5 = require("parse5");
 const math = require("mathjs");
 const is = require("fi-is");
+const lodash_get_1 = require("lodash.get");
 const MATH_CONSTANTS = Object.keys(math);
 const errors_1 = require("./errors");
 /**
@@ -259,7 +259,7 @@ function findValue(variable, ctx) {
         throw new errors_1.InvalidReferenceError('Context must be an object');
     }
     const doc = findDocument(reference, ctx);
-    const found = _get(doc, reference.path);
+    const found = lodash_get_1._get(doc, reference.path);
     if (found === null || found === undefined) {
         throw new errors_1.InvalidReferenceError('Invalid fetched value');
     }
