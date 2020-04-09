@@ -307,7 +307,7 @@ export function findValue(variable: Variable, ctx: Context): FormulaResult {
   }
 
   if (is.object(found)) {
-    found.value;
+    return found.value;
   }
 
   return found;
