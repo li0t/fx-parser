@@ -52,6 +52,6 @@ export interface Context {
 }
 
 export interface Parser {
-  eval: Function;
+  evaluate: Function;
   set: Function;
 }

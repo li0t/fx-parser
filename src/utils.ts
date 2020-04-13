@@ -210,7 +210,7 @@ export function solveExpression(expression: string, parser: Parser): FormulaResu
   try {
     const cleaned = cleanExpression(expression);
 
-    return parser.eval(cleaned);
+    return parser.evaluate(cleaned);
   } catch (err) {
     if (isUndefinedVariableError(err)) {
       return;
