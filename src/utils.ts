@@ -5,14 +5,13 @@
 import * as FORMULAS_CONSTS from './consts';
 import * as parse5 from 'parse5';
 import * as math from 'mathjs';
-import * as _  from 'lodash';
+import * as _ from 'lodash';
 import * as is from 'fi-is';
 
 import { Reference, Variable, Calculable, Formula, Context, ContextModel, ModelDocument, Parser } from './interfaces';
 import { InvalidReferenceError, InvalidValueError, InvalidVariablesError } from './errors';
 import { FormulaResult } from './types';
 import { Node } from './interfaces';
-
 
 const MATH_CONSTANTS = Object.keys(math);
 
@@ -242,6 +241,10 @@ export function setParserVariable(parser: Parser, name: string, val: any): void 
  * @returns The model document
  */
 export function findDocument(reference: Reference, ctx: Context): ModelDocument {
+  if (!is.object(ctx)) {
+    throw new InvalidVariablesError('Ctx must be an object');
+  }
+
   if (!is.object(reference)) {
     throw new InvalidVariablesError('Reference must be an object');
   }
@@ -252,10 +255,6 @@ export function findDocument(reference: Reference, ctx: Context): ModelDocument 
 
   if (!is.string(reference.model)) {
     throw new InvalidVariablesError('Refernce model must be a string');
-  }
-
-  if (!is.object(ctx)) {
-    throw new InvalidVariablesError('Ctx must be an object');
   }
 
   const model: ContextModel = ctx[reference.model];
@@ -280,6 +279,10 @@ export function findDocument(reference: Reference, ctx: Context): ModelDocument 
  * @returns FormulaResult
  */
 export function findValue(variable: Variable, ctx: Context): FormulaResult {
+  if (!is.object(ctx)) {
+    throw new InvalidVariablesError('Context must be an object');
+  }
+
   if (!is.object(variable)) {
     throw new InvalidVariablesError('Variable must be an object');
   }
@@ -290,12 +293,8 @@ export function findValue(variable: Variable, ctx: Context): FormulaResult {
     throw new InvalidVariablesError('Reference must be an object');
   }
 
-  if (!is.string(reference.path)) {
-    throw new InvalidVariablesError('Refernce path must be a string');
-  }
-
-  if (!is.object(ctx)) {
-    throw new InvalidReferenceError('Context must be an object');
+  if (!is.string(reference.path) || is.empty(reference.path)) {
+    throw new InvalidReferenceError('Refernce path must be a string');
   }
 
   const doc = findDocument(reference, ctx);
@@ -303,7 +302,7 @@ export function findValue(variable: Variable, ctx: Context): FormulaResult {
   const found = _.get(doc, reference.path);
 
   if (found === null || found === undefined) {
-    throw new InvalidReferenceError('Invalid fetched value');
+    throw new InvalidReferenceError(`Value was not found in ${reference.path}`);
   }
 
   if (is.object(found)) {
