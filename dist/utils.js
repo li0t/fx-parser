@@ -184,7 +184,7 @@ exports.handleCalcError = handleCalcError;
 function solveExpression(expression, parser) {
     try {
         const cleaned = cleanExpression(expression);
-        return parser.eval(cleaned);
+        return parser.evaluate(cleaned);
     }
     catch (err) {
         if (isUndefinedVariableError(err)) {

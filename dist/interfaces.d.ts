@@ -42,6 +42,6 @@ export interface Context {
     formulas: Formula[];
 }
 export interface Parser {
-    eval: Function;
+    evaluate: Function;
     set: Function;
 }
