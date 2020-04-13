@@ -215,6 +215,9 @@ exports.setParserVariable = setParserVariable;
  * @returns The model document
  */
 function findDocument(reference, ctx) {
+    if (!is.object(ctx)) {
+        throw new errors_1.InvalidVariablesError('Ctx must be an object');
+    }
     if (!is.object(reference)) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
@@ -223,9 +226,6 @@ function findDocument(reference, ctx) {
     }
     if (!is.string(reference.model)) {
         throw new errors_1.InvalidVariablesError('Refernce model must be a string');
-    }
-    if (!is.object(ctx)) {
-        throw new errors_1.InvalidVariablesError('Ctx must be an object');
     }
     const model = ctx[reference.model];
     if (!is.array(model) || is.empty(model)) {
@@ -245,6 +245,9 @@ exports.findDocument = findDocument;
  * @returns FormulaResult
  */
 function findValue(variable, ctx) {
+    if (!is.object(ctx)) {
+        throw new errors_1.InvalidVariablesError('Context must be an object');
+    }
     if (!is.object(variable)) {
         throw new errors_1.InvalidVariablesError('Variable must be an object');
     }
@@ -252,16 +255,13 @@ function findValue(variable, ctx) {
     if (!is.object(reference)) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
-    if (!is.string(reference.path)) {
-        throw new errors_1.InvalidVariablesError('Refernce path must be a string');
-    }
-    if (!is.object(ctx)) {
-        throw new errors_1.InvalidReferenceError('Context must be an object');
+    if (!is.string(reference.path) || is.empty(reference.path)) {
+        throw new errors_1.InvalidReferenceError('Refernce path must be a string');
     }
     const doc = findDocument(reference, ctx);
     const found = _.get(doc, reference.path);
     if (found === null || found === undefined) {
-        throw new errors_1.InvalidReferenceError('Invalid fetched value');
+        throw new errors_1.InvalidReferenceError(`Value was not found in ${reference.path}`);
     }
     if (is.object(found)) {
         return found.value;
