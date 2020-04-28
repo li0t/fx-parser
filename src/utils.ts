@@ -249,12 +249,12 @@ export function findDocument(reference: Reference, ctx: Context): ModelDocument 
     throw new InvalidVariablesError('Reference must be an object');
   }
 
-  if (!is.string(reference.docId)) {
-    throw new InvalidVariablesError('Refernce docId must be a string');
+  if (!is.string(reference.model)) {
+    throw new InvalidVariablesError('Reference model must be a string');
   }
 
-  if (!is.string(reference.model)) {
-    throw new InvalidVariablesError('Refernce model must be a string');
+  if (is.empty(reference.docId)) {
+    throw new InvalidVariablesError("Reference docId can't be empty");
   }
 
   const model: ContextModel = ctx[reference.model];
@@ -294,7 +294,7 @@ export function findValue(variable: Variable, ctx: Context): FormulaResult {
   }
 
   if (!is.string(reference.path) || is.empty(reference.path)) {
-    throw new InvalidReferenceError('Refernce path must be a string');
+    throw new InvalidReferenceError('Reference path must be a string');
   }
 
   const doc = findDocument(reference, ctx);
