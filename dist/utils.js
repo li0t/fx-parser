@@ -221,11 +221,11 @@ function findDocument(reference, ctx) {
     if (!is.object(reference)) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
-    if (!is.string(reference.docId)) {
-        throw new errors_1.InvalidVariablesError('Refernce docId must be a string');
-    }
     if (!is.string(reference.model)) {
-        throw new errors_1.InvalidVariablesError('Refernce model must be a string');
+        throw new errors_1.InvalidVariablesError('Reference model must be a string');
+    }
+    if (is.empty(reference.docId)) {
+        throw new errors_1.InvalidVariablesError("Reference docId can't be empty");
     }
     const model = ctx[reference.model];
     if (!is.array(model) || is.empty(model)) {
@@ -256,7 +256,7 @@ function findValue(variable, ctx) {
         throw new errors_1.InvalidVariablesError('Reference must be an object');
     }
     if (!is.string(reference.path) || is.empty(reference.path)) {
-        throw new errors_1.InvalidReferenceError('Refernce path must be a string');
+        throw new errors_1.InvalidReferenceError('Reference path must be a string');
     }
     const doc = findDocument(reference, ctx);
     const found = _.get(doc, reference.path);
