@@ -174,12 +174,39 @@ export function isCalculable(attribute: Calculable): boolean {
 }
 
 /**
+ * Filters all the calculable elements of an array.
+ * @param  {Object[]} arr
+ * @returns Calculables array
+ */
+function getArrayCalculables(arr): Calculable[] {
+  const calculables = arr.filter((attr: Calculable) => isCalculable(attr));
+  return calculables;
+}
+
+/**
+ * Filters all the calculable attributes of an object.
+ * @param  {any} obj
+ * @returns Calculables array
+ */
+function getObjectCalculables(obj): Calculable[] {
+  const values = Object.values(obj);
+  const calculables = getArrayCalculables(values);
+  return calculables;
+}
+
+/**
  * Filters all the calculable attributes of an object.
  * @param  {any} source
- * @returns Calculable
+ * @returns Calculables array
  */
 export function getSourceCalculables(source: any): Calculable[] {
-  return <Calculable[]>Object.values(source).filter((attr: Calculable) => isCalculable(attr));
+  if (is.object(source)) {
+    return getObjectCalculables(source);
+  } else if (is.array(source)) {
+    return getArrayCalculables(source);
+  } else {
+    throw new Error(`Source must be and object or array: ${JSON.stringify(source)}`);
+  }
 }
 
 /**
