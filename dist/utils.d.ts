@@ -70,7 +70,7 @@ export declare function isCalculable(attribute: Calculable): boolean;
 /**
  * Filters all the calculable attributes of an object.
  * @param  {any} source
- * @returns Calculable
+ * @returns Calculables array
  */
 export declare function getSourceCalculables(source: any): Calculable[];
 /**
