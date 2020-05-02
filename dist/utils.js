@@ -211,7 +211,12 @@ exports.handleCalcError = handleCalcError;
 function solveExpression(expression, parser) {
     try {
         const cleaned = cleanExpression(expression);
-        return parser.evaluate(cleaned);
+        const value = parser.evaluate(cleaned);
+        const parsed = parseFloat(value);
+        if (!isNaN(parsed)) {
+            return parsed;
+        }
+        return value;
     }
     catch (err) {
         if (isUndefinedVariableError(err)) {
