@@ -39,17 +39,17 @@ export function isFormulaSymbol(val: string): boolean {
 /**
  * Checks if given value is a missing reference symbol
  */
-export function isRefErrorSymbol(val: string): boolean {
+export function isRefErrorSymbol(str: string): boolean {
   const re = new RegExp(FORMULAS_CONSTS.REF_ERROR);
-  return re.test(val);
+  return re.test(str);
 }
 
 /**
  * Checks if given value is a missing reference symbol
  */
-export function isValErrorSymbol(val: string): boolean {
+export function isValErrorSymbol(str: string): boolean {
   const re = new RegExp(FORMULAS_CONSTS.VAL_ERROR);
-  return re.test(val);
+  return re.test(str);
 }
 
 /**
