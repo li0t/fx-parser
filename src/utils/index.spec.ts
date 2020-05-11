@@ -1,4 +1,4 @@
-import * as FORMULAS_CONSTS from './consts';
+import * as FORMULAS_CONSTS from '../consts';
 import 'mocha';
 
 import { expect } from 'chai';
@@ -8,7 +8,7 @@ import {
   isFormulaSymbol,
   isRefErrorSymbol,
   isValErrorSymbol
-} from './utils';
+} from '.';
 
 describe('Utils', () => {
   describe(`${isUndefinedVariableError.name}`, () => {
