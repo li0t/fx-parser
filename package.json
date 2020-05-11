@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "preversion": "npm test && npm run build",
+    "preversion": "npm run coverage && npm run build",
     "postversion": "npm publish",
     "build": "tsc && git add . && git commit -m 'Update dist'",
     "start": "node dist/index.js",
