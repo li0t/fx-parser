@@ -2,14 +2,21 @@ import solveFormula from './solve-formula';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
-import { SUM, ctx } from './formula_generator';
+import { ADDITION, SUBTRACTION, ctx } from './formula_generator';
 
 describe('Solve formulas', () => {
   describe('Arithmetic', () => {
-    describe('Summattion', () => {
-      it('Solved expression equals to sum result', async () => {
-        const sum = solveFormula(SUM.CALCULABLE, ctx);
-        expect(sum).to.equals(SUM.RESULT);
+    describe('Addition', () => {
+      it(`Should be ${ADDITION.RESULT}`, async () => {
+        const res = solveFormula(ADDITION.CALCULABLE, ctx);
+        expect(res).to.equals(ADDITION.RESULT);
+      });
+    });
+
+    describe('Subtraction', () => {
+      it(`Should be ${SUBTRACTION.RESULT}`, async () => {
+        const res = solveFormula(SUBTRACTION.CALCULABLE, ctx);
+        expect(res).to.equals(SUBTRACTION.RESULT);
       });
     });
   });
