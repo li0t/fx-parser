@@ -2,7 +2,7 @@ import solveFormula from './solve-formula';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
-import { ADDITION, SUBTRACTION, ctx } from './formula_generator';
+import { ADDITION, SUBTRACTION, MULTIPLICATION, ctx } from './formula_generator';
 
 describe('Solve formulas', () => {
   describe('Arithmetic', () => {
@@ -17,6 +17,13 @@ describe('Solve formulas', () => {
       it(`Should be ${SUBTRACTION.RESULT}`, async () => {
         const res = solveFormula(SUBTRACTION.CALCULABLE, ctx);
         expect(res).to.equals(SUBTRACTION.RESULT);
+      });
+    });
+
+    describe('Multiplication', () => {
+      it(`Should be ${MULTIPLICATION.RESULT}`, async () => {
+        const res = solveFormula(MULTIPLICATION.CALCULABLE, ctx);
+        expect(res).to.equals(MULTIPLICATION.RESULT);
       });
     });
   });
