@@ -1,37 +1,29 @@
 {
-  "plugins": [
-    "security",
-    "mocha",
-    "node"
-  ],
+  "plugins": ["mocha"],
   "extends": [
-    "eslint:recommended",
-    "plugin:security/recommended",
+    "eslint:recommended", 
     "plugin:mocha/recommended",
-    "plugin:node/recommended"
+    "plugin:@typescript-eslint/recommended"
   ],
   "env": {
     "browser": false,
     "es6": true,
     "node": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 8,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
-    }
+    },
+    "sourceType": "module"
   },
   "rules": {
     "no-console": "off",
     "require-jsdoc": "warn",
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
-    "quotes": [
-      "error",
-      {
-        "avoidEscape": true
-      }
-    ],
+    "quotes": 2,
     "indent": [
       "error",
       2,
