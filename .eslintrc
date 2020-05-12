@@ -20,10 +20,10 @@
   },
   "rules": {
     "no-console": "off",
+    "mocha/no-mocha-arrows": "off",
     "require-jsdoc": "warn",
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
-    "quotes": 2,
     "indent": [
       "error",
       2,
