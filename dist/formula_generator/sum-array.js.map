@@ -1,0 +1,1 @@
+{"version":3,"file":"sum-array.js","sourceRoot":"","sources":["../../src/formula_generator/sum-array.ts"],"names":[],"mappings":";;AAAA;;;;;GAKG;AACH,SAAS,OAAO,CAAC,WAAmB,EAAE,YAAoB;IACxD,OAAO,WAAW,GAAG,YAAY,CAAC;AACpC,CAAC;AAED;;;;GAIG;AACH,SAAwB,QAAQ,CAAC,GAAa;IAC5C,OAAO,GAAG,CAAC,MAAM,CAAC,OAAO,CAAC,CAAC;AAC7B,CAAC;AAFD,2BAEC"}
