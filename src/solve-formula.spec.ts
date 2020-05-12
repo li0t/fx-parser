@@ -2,7 +2,7 @@ import solveFormula from './solve-formula';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
-import { ADDITION, SUBTRACTION, MULTIPLICATION, ctx } from './formula_generator';
+import { ADDITION, SUBTRACTION, MULTIPLICATION, ctx } from './generator';
 
 describe('Solve formulas', () => {
   describe('Arithmetic', () => {
