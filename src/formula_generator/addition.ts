@@ -16,37 +16,37 @@ const variablesReferences = getVariablesReferences(variables, 'Source', sourceId
 const expression = variables.join(' + ');
 
 // Formula
-const SUM_FORMULA = {
+const ADDITION_FORMULA = {
   expression,
   variables,
 
   _id: formulaId,
-  name: 'Sum'
+  name: 'ADDITION'
 };
 
 // Source
-const SUM_SOURCE = {
+const ADDITION_SOURCE = {
   _id: sourceId,
-  name: 'SUM_SOURCE',
+  name: 'ADDITION_SOURCE',
 
   ...variablesValues
 };
 
 // Calculables
-const SUM_CALCULABLE: Calculable = {
-  formula: SUM_FORMULA._id,
+const ADDITION_CALCULABLE: Calculable = {
+  formula: ADDITION_FORMULA._id,
   value: null,
   variables: variablesReferences
 };
 
 // Result
-const SUM_RESULT = sumArray(Object.values(variablesValues));
+const ADDITION_RESULT = sumArray(Object.values(variablesValues));
 
 const SUM = {
-  CALCULABLE: SUM_CALCULABLE,
-  FORMULA: SUM_FORMULA,
-  SOURCE: SUM_SOURCE,
-  RESULT: SUM_RESULT
+  CALCULABLE: ADDITION_CALCULABLE,
+  FORMULA: ADDITION_FORMULA,
+  SOURCE: ADDITION_SOURCE,
+  RESULT: ADDITION_RESULT
 };
 
 export default SUM;
