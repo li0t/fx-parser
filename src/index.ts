@@ -2,12 +2,5 @@
  * @module fxSolve
  */
 
-import solveFormula from './solve-formula';
-import solveFormulas from './solve-formulas';
-
-const fxSolve = {
-  solveFormula,
-  solveFormulas
-};
-
-export default fxSolve;
+export { default as solveFormula } from './solve-formula';
+export { default as solveFormulas } from './solve-formulas';
