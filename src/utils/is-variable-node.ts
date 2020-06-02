@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-variable-node
+ * @module fxSolve/utils/is-variable-node
  */
 
 import { Node } from '../interfaces';

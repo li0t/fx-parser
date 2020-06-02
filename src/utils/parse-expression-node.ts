@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/parse-expression-node
+ * @module fxSolve/utils/parse-expression-node
  */
 
 import * as _ from 'lodash';

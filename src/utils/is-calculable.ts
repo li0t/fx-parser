@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-calculable
+ * @module fxSolve/utils/is-calculable
  */
 
 import * as is from 'fi-is';

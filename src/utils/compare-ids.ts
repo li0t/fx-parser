@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/compare-ids
+ * @module fxSolve/utils/compare-ids
  */
 
 import * as is from 'fi-is';

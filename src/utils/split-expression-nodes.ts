@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/split-expression-nodes
+ * @module fxSolve/utils/split-expression-nodes
  */
 
 import parseExpressionNode from './parse-expression-node';

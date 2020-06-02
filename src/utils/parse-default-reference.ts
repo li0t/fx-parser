@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service//parse-default-reference
+ * @module fxSolve/utils//parse-default-reference
  */
 
 /**

@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/get-source-calculables
+ * @module fxSolve/utils/get-source-calculables
  */
 
 import getObjectCalculables from './get-object-calculables';

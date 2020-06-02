@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-formula-symbol1
+ * @module fxSolve/utils/is-formula-symbol1
  */
 
 import * as FORMULAS_CONSTS from '../consts';

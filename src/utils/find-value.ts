@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/
+ * @module fxSolve/utils/
  */
 
 import findDocument from './find-document';

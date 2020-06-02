@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/get-array-calculables
+ * @module fxSolve/utils/get-array-calculables
  */
 
 import isCalculable from './is-calculable';

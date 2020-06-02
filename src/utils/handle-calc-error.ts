@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/
+ * @module fxSolve/utils/
  */
 
 import isUnexpectedTypeError from './is-unexpected-type-error';

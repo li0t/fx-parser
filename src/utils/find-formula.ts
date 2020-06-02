@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/find-formula
+ * @module fxSolve/utils/find-formula
  */
 
 import compareIds from './compare-ids';

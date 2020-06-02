@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-undefined-variable-error
+ * @module fxSolve/utils/is-undefined-variable-error
  */
 
 /**

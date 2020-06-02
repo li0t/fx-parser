@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-constant-node
+ * @module fxSolve/utils/is-constant-node
  */
 
 import { Node } from '../interfaces';

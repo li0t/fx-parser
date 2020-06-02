@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/get-variables
+ * @module fxSolve/utils/get-variables
  */
 
 import cleanExpression from './clean-expression';

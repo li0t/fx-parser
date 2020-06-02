@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/solve-expression
+ * @module fxSolve/utils/solve-expression
  */
 
 import isUndefinedVariableError from './is-undefined-variable-error';

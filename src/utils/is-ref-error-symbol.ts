@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-ref-error-symbol
+ * @module fxSolve/utils/is-ref-error-symbol
  */
 
 import { REF_ERROR } from '../consts';

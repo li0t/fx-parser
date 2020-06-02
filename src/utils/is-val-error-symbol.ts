@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-val-error-symbol
+ * @module fxSolve/utils/is-val-error-symbol
  */
 
 import { VAL_ERROR } from '../consts';

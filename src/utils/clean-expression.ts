@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/clean-expression
+ * @module fxSolve/utils/clean-expression
  */
 
 /**

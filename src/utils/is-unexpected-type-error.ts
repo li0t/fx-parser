@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-unexpected-type-error
+ * @module fxSolve/utils/is-unexpected-type-error
  */
 
 /**

@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/is-valid-parser-val
+ * @module fxSolve/utils/is-valid-parser-val
  */
 
 import * as is from 'fi-is';

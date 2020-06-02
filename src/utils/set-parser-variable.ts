@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/service/set-parser-variable
+ * @module fxSolve/utils/set-parser-variable
  */
 
 import isValidParserVal from './is-valid-parser-val';
