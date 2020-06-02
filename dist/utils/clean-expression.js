@@ -1,10 +1,12 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/clean-expression
+ * @module fxSolve/utils/clean-expression
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Replaces commas on constants for periods, for a given expression.
+ * @param {String} expression The expression to clean.
+ * @returns {String} The cleaned expressiob.
  */
 function cleanExpression(expression) {
     const match = /\d,\d/.exec(expression);

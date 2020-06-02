@@ -1,9 +1,9 @@
 /**
- * @module fxSolve/utils/service/
+ * @module fxSolve/utils/
  */
 /**
  * Returns a fxSolve consts for a known error.
- * @param  {Error|string} err
- * @returns string
+ * @param {Error|String} err The error to handle.
+ * @returns {String} The fxSolve consts.
  */
 export default function handleCalcError(err: Error | string): string;

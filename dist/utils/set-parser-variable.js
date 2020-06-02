@@ -1,16 +1,16 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/set-parser-variable
+ * @module fxSolve/utils/set-parser-variable
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const is_valid_parser_val_1 = require("./is-valid-parser-val");
 const errors_1 = require("../errors");
 /**
- * Sets a variable value in a calculable parser.
- * @param  {Parser} parser
- * @param  {string} name
- * @param  {any} val
- * @returns void
+ * Sets a variable value in a MathJs parser.
+ *
+ * @param {Object} parser A MathJs parser.
+ * @param {String} name The name of the variable.
+ * @param {any} val The value of the variable.
  */
 function setParserVariable(parser, name, val) {
     if (!is_valid_parser_val_1.default(val)) {

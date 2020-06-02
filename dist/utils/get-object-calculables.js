@@ -1,13 +1,13 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/get-object-calculables
+ * @module fxSolve/utils/get-object-calculables
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const get_array_calculables_1 = require("./get-array-calculables");
 /**
  * Filters all the calculable attributes of an object.
- * @param  {any} obj
- * @returns Calculables array
+ * @param {Object} obj The object where to find the calculables.
+ * @returns {Object[]} The found calculables.
  */
 function getObjectCalculables(obj) {
     const values = Object.values(obj);

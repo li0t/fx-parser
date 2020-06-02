@@ -1,15 +1,15 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/find-formula
+ * @module fxSolve/utils/find-formula
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const compare_ids_1 = require("./compare-ids");
 const is = require("fi-is");
 /**
  * Looks for a formula object in the store formulas array.
- * @param  {Context} ctx
- * @param  {any} formula
- * @returns Formula
+ * @param {Object} ctx The context where to find the formula.
+ * @param {Object|String} formula The formula to find.
+ * @returns {Object} The found formula.
  */
 function findFormula(ctx, formula) {
     const formulaId = formula._id || formula;

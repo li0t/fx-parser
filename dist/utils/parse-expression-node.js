@@ -1,11 +1,13 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/parse-expression-node
+ * @module fxSolve/utils/parse-expression-node
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const is_constant_node_1 = require("./is-constant-node");
 /**
- * Returns a formatted node
+ * Parses a MathJs node to a HTML node format.
+ * @param {Object} node The node to parse.
+ * @returns {Object} The HTML node.
  */
 function parseExpressionNode(node) {
     const newNode = {

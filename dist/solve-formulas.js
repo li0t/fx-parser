@@ -10,9 +10,9 @@ const errors_1 = require("./errors");
 const utils_1 = require("./utils");
 /**
  * Iterates over the context calculables until there is no more changes.
- * @param  {any} source
- * @param  {Context} ctx
- * @param  {Parser=math.parser()} parser
+ * @param {any} source
+ * @param {Context} ctx
+ * @param {Parser=math.parser()} parser
  * @returns void
  */
 function solveFormulas(source, ctx, parser = math.parser()) {

@@ -9,9 +9,9 @@ const errors_1 = require("./errors");
 const utils_1 = require("./utils");
 /**
  * Tries to solve a calculable formula with it's stored variables references.
- * @param  {Calculable} calculable
- * @param  {Context} ctx
- * @param  {Parser=math.parser()} parser
+ * @param {Calculable} calculable
+ * @param {Context} ctx
+ * @param {Parser=math.parser()} parser
  * @returns FormulaResult
  */
 function solveFormula(calculable, ctx, parser = math.parser()) {

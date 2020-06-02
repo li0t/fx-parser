@@ -1,1 +1,1 @@
-{"version":3,"file":"is-variable-node.js","sourceRoot":"","sources":["../../src/utils/is-variable-node.ts"],"names":[],"mappings":";AAAA;;GAEG;;AAIH;;GAEG;AACH,SAAwB,cAAc,CAAC,IAAU;IAC/C,OAAO,IAAI,CAAC,OAAO,CAAC,QAAQ,CAAC,aAAa,CAAC,CAAC;AAC9C,CAAC;AAFD,iCAEC"}
+{"version":3,"file":"is-variable-node.js","sourceRoot":"","sources":["../../src/utils/is-variable-node.ts"],"names":[],"mappings":";AAAA;;GAEG;;AAIH;;;;GAIG;AACH,SAAwB,cAAc,CAAC,IAAU;IAC/C,OAAO,IAAI,CAAC,OAAO,CAAC,QAAQ,CAAC,aAAa,CAAC,CAAC;AAC9C,CAAC;AAFD,iCAEC"}

@@ -1,6 +1,6 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/
+ * @module fxSolve/utils/find-value
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const find_document_1 = require("./find-document");
@@ -8,10 +8,10 @@ const _ = require("lodash");
 const is = require("fi-is");
 const errors_1 = require("../errors");
 /**
- * Retrieves the references value.
- * @param  {Variable} variable
- * @param  {Context} ctx
- * @returns FormulaResult
+ * Searches for the value of a formula variable.
+ * @param {Object} variable The variable to find.
+ * @param {Object} ctx The context where to find the value.
+ * @returns {Object} The found value.
  */
 function findValue(variable, ctx) {
     if (!is.object(ctx)) {

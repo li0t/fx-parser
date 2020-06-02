@@ -1,6 +1,6 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/find-document
+ * @module fxSolve/utils/find-document
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const compare_ids_1 = require("./compare-ids");
@@ -8,9 +8,9 @@ const is = require("fi-is");
 const errors_1 = require("../errors");
 /**
  * Finds a model document in the context.
- * @param  {Reference} reference
- * @param  {Context} ctx
- * @returns The model document
+ * @param {Object} reference The reference to the document.
+ * @param {Object} ctx The context where to find the document.
+ * @returns {Object} The found document.
  */
 function findDocument(reference, ctx) {
     if (!is.object(ctx)) {

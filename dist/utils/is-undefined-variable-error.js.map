@@ -1,1 +1,1 @@
-{"version":3,"file":"is-undefined-variable-error.js","sourceRoot":"","sources":["../../src/utils/is-undefined-variable-error.ts"],"names":[],"mappings":";AAAA;;GAEG;;AAEH;;GAEG;AACH,SAAwB,wBAAwB,CAAC,GAAW;IAC1D,OAAO,kBAAkB,CAAC,IAAI,CAAC,GAAG,CAAC,CAAC;AACtC,CAAC;AAFD,2CAEC"}
+{"version":3,"file":"is-undefined-variable-error.js","sourceRoot":"","sources":["../../src/utils/is-undefined-variable-error.ts"],"names":[],"mappings":";AAAA;;GAEG;;AAEH;;;;GAIG;AACH,SAAwB,wBAAwB,CAAC,GAAW;IAC1D,OAAO,kBAAkB,CAAC,IAAI,CAAC,GAAG,CAAC,CAAC;AACtC,CAAC;AAFD,2CAEC"}

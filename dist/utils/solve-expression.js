@@ -1,15 +1,15 @@
 "use strict";
 /**
- * @module fxSolve/utils/service/solve-expression
+ * @module fxSolve/utils/solve-expression
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const is_undefined_variable_error_1 = require("./is-undefined-variable-error");
 const clean_expression_1 = require("./clean-expression");
 /**
- * Tries to solve a mathematical expression.
- * @param  {string} expression
- * @param  {Parser} parser
- * @returns FormulaResult
+ * Tries to solve a mathematical expression with a MathJs parser.
+ * @param {String} expression The expression to solve.
+ * @param {Object} parser The MathJs parser.
+ * @returns {any} The expression result.
  */
 function solveExpression(expression, parser) {
     try {

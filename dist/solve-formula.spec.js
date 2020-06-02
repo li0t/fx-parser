@@ -12,25 +12,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const solve_formula_1 = require("./solve-formula");
 const mocha_1 = require("mocha");
 const chai_1 = require("chai");
-const formula_generator_1 = require("./formula_generator");
+const generator_1 = require("./generator");
 mocha_1.describe('Solve formulas', () => {
     mocha_1.describe('Arithmetic', () => {
         mocha_1.describe('Addition', () => {
-            mocha_1.it(`Should be ${formula_generator_1.ADDITION.RESULT}`, () => __awaiter(void 0, void 0, void 0, function* () {
-                const res = solve_formula_1.default(formula_generator_1.ADDITION.CALCULABLE, formula_generator_1.ctx);
-                chai_1.expect(res).to.equals(formula_generator_1.ADDITION.RESULT);
+            mocha_1.it(`Should be ${generator_1.ADDITION.RESULT}`, () => __awaiter(void 0, void 0, void 0, function* () {
+                const res = solve_formula_1.default(generator_1.ADDITION.CALCULABLE, generator_1.ctx);
+                chai_1.expect(res).to.equals(generator_1.ADDITION.RESULT);
             }));
         });
         mocha_1.describe('Subtraction', () => {
-            mocha_1.it(`Should be ${formula_generator_1.SUBTRACTION.RESULT}`, () => __awaiter(void 0, void 0, void 0, function* () {
-                const res = solve_formula_1.default(formula_generator_1.SUBTRACTION.CALCULABLE, formula_generator_1.ctx);
-                chai_1.expect(res).to.equals(formula_generator_1.SUBTRACTION.RESULT);
+            mocha_1.it(`Should be ${generator_1.SUBTRACTION.RESULT}`, () => __awaiter(void 0, void 0, void 0, function* () {
+                const res = solve_formula_1.default(generator_1.SUBTRACTION.CALCULABLE, generator_1.ctx);
+                chai_1.expect(res).to.equals(generator_1.SUBTRACTION.RESULT);
             }));
         });
         mocha_1.describe('Multiplication', () => {
-            mocha_1.it(`Should be ${formula_generator_1.MULTIPLICATION.RESULT}`, () => __awaiter(void 0, void 0, void 0, function* () {
-                const res = solve_formula_1.default(formula_generator_1.MULTIPLICATION.CALCULABLE, formula_generator_1.ctx);
-                chai_1.expect(res).to.equals(formula_generator_1.MULTIPLICATION.RESULT);
+            mocha_1.it(`Should be ${generator_1.MULTIPLICATION.RESULT}`, () => __awaiter(void 0, void 0, void 0, function* () {
+                const res = solve_formula_1.default(generator_1.MULTIPLICATION.CALCULABLE, generator_1.ctx);
+                chai_1.expect(res).to.equals(generator_1.MULTIPLICATION.RESULT);
             }));
         });
     });
