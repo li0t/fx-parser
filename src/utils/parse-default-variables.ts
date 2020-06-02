@@ -1,5 +1,5 @@
 import parseDefaultReference from './parse-default-reference';
-import is from 'fi-is';
+import * as is from 'fi-is';
 
 import { Variable } from '../interfaces';
 /**
