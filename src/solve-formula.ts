@@ -6,16 +6,16 @@ import * as math from 'mathjs';
 import * as is from 'fi-is';
 
 import { InvalidArgumentsError, InvalidVariablesError, InvalidFormulaError } from './errors';
-import { Calculable, Context, Parser } from './interfaces';
+import { Calculable, Context, Parser, Formula } from './interfaces';
 import { FormulaResult } from './types';
 
 import { findFormula, findValue, setParserVariable, solveExpression, handleCalcError } from './utils';
 
 /**
  * Tries to solve a calculable formula with it's stored variables references.
- * @param  {Calculable} calculable
- * @param  {Context} ctx
- * @param  {Parser=math.parser()} parser
+ * @param {Calculable} calculable
+ * @param {Context} ctx
+ * @param {Parser=math.parser()} parser
  * @returns FormulaResult
  */
 export default function solveFormula(

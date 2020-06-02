@@ -5,8 +5,10 @@
 import { Node } from '../interfaces';
 
 /**
- * Checks if node represents a constant.
+ * Checks if expression node represents a constant.
+ * @param {Object} node The node to check.
+ * @returns {Boolean} Is the node a constant.
  */
-export default function isConstantNode(node: Node) {
+export default function isConstantNode(node: Node): boolean {
   return node.classes.includes('math-number');
 }

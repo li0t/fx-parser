@@ -1,5 +1,5 @@
 /**
- * @module fxSolve/utils/
+ * @module fxSolve/utils/find-value
  */
 
 import findDocument from './find-document';
@@ -10,13 +10,11 @@ import { InvalidReferenceError, InvalidVariablesError } from '../errors';
 import { Variable, Context } from '../interfaces';
 import { FormulaResult } from '../types';
 
-
-
 /**
- * Retrieves the references value.
- * @param  {Variable} variable
- * @param  {Context} ctx
- * @returns FormulaResult
+ * Searches for the value of a formula variable.
+ * @param {Object} variable The variable to find.
+ * @param {Object} ctx The context where to find the value.
+ * @returns {Object} The found value.
  */
 export default function findValue(variable: Variable, ctx: Context): FormulaResult {
   if (!is.object(ctx)) {

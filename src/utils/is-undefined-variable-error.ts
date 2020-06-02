@@ -3,8 +3,10 @@
  */
 
 /**
- * Mathjs returns anonymous error with the "Undefined symbol" string.
+ * Checks if the string is a Mathjs "Undefined symbol" custom error string.
+ * @param {String} str The string to check.
+ * @returns {Boolean} Is the string an undefined symbol error.
  */
-export default function isUndefinedVariableError(err: string): boolean {
-  return /Undefined symbol/.test(err);
+export default function isUndefinedVariableError(str: string): boolean {
+  return /Undefined symbol/.test(str);
 }

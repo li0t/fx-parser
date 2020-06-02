@@ -12,9 +12,9 @@ import { getSourceCalculables } from './utils';
 
 /**
  * Iterates over the context calculables until there is no more changes.
- * @param  {any} source
- * @param  {Context} ctx
- * @param  {Parser=math.parser()} parser
+ * @param {any} source
+ * @param {Context} ctx
+ * @param {Parser=math.parser()} parser
  * @returns void
  */
 export default function solveFormulas(source: any, ctx: Context, parser: Parser = math.parser()): void {

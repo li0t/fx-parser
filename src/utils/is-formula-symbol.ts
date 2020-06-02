@@ -5,8 +5,10 @@
 import * as FORMULAS_CONSTS from '../consts';
 
 /**
- * Checks if a string represents a component custom symbol.
+ * Checks if a string represents a fxSolve const.
+ * @param {String} str The string to check.
+ * @returns {Boolean} Is the string a fxSolve const.
  */
-export default function isFormulaSymbol(val: string): boolean {
-  return !!Object.values(FORMULAS_CONSTS).find((symbol) => val === symbol);
+export default function isFormulaSymbol(str: string): boolean {
+  return !!Object.values(FORMULAS_CONSTS).find((symbol) => str === symbol);
 }
