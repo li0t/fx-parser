@@ -3,11 +3,8 @@
  * @module fxSolve
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const solve_formula_1 = require("./solve-formula");
-const solve_formulas_1 = require("./solve-formulas");
-const fxSolve = {
-    solveFormula: solve_formula_1.default,
-    solveFormulas: solve_formulas_1.default
-};
-exports.default = fxSolve;
+var solve_formula_1 = require("./solve-formula");
+exports.solveFormula = solve_formula_1.default;
+var solve_formulas_1 = require("./solve-formulas");
+exports.solveFormulas = solve_formulas_1.default;
 //# sourceMappingURL=index.js.map
